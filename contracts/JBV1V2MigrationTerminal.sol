@@ -279,22 +279,14 @@ contract JBV1V2Terminal is
 
       // Send the claimed tokens back to being unclaimed.
       ticketBooth.stake(address(this), _v1ProjectId, _claimedTokensToMigrate);
-
-      // Increment the claimed balance.
-      balanceOf[_projectId][_v1ProjectId] =
-        balanceOf[_projectId][_v1ProjectId] +
-        _claimedTokensToMigrate;
     }
 
-    if (_unclaimedTokensToMigrate > 0) {
+    if (_unclaimedTokensToMigrate > 0)
       // Transfer tokens to this terminal from the msg sender.
       ticketBooth.transfer(msg.sender, _v1ProjectId, _unclaimedTokensToMigrate, address(this));
 
-      // Increment the unclaimed balance.
-      balanceOf[_projectId][_v1ProjectId] =
-        balanceOf[_projectId][_v1ProjectId] +
-        _unclaimedTokensToMigrate;
-    }
+    // Increment the balance.
+    balanceOf[_projectId][_v1ProjectId] = balanceOf[_projectId][_v1ProjectId] + _amount;
 
     // if _preferClaimedTokens, try to transfer ERC-20's to this contract.
     // else try to transfer via ticketBooth.
