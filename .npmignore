@@ -1,0 +1,12 @@
+# Ignore everything by default.
+*
+
+# Allowlisted deployment networks.
+!/deployments/rinkeby/**
+!/deployments/mainnet/**
+
+# Allow everything in /contracts ...
+!/contracts/**
+# ... except tests
+/contracts/test/**
+/contracts/system_tests/**
