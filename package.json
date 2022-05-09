@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "@jbx-protocol/contracts-v2": "^4.0.0",
+    "@jbox/sol": "^1.0.1",
+    "@openzeppelin/contracts": "^4.5.0-rc.0",
     "dotenv": "^10.0.0",
     "esm": "^3.2.25",
     "glob": "^7.2.0",

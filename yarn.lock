@@ -762,6 +762,15 @@
     "@ethersproject/properties" "^5.5.0"
     "@ethersproject/strings" "^5.5.0"
 
+"@jbox/sol@^1.0.1":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@jbox/sol/-/sol-1.0.2.tgz#6ac70fbf6abfbeb4a93743788513e1c5b955d323"
+  integrity sha512-ERGUJkt/qV8ID+qz1LeAfASbLu0393zq/8zZbFCfZBHifeUQbHOXdml+yMP5cyKDZXGhqh/M9xn22YbAIe+8pg==
+  dependencies:
+    "@chainlink/contracts" "^0.1.6"
+    "@openzeppelin/contracts" "^4.1.0"
+    "@paulrberg/contracts" "^3.4.0"
+
 "@jbx-protocol/contracts-v2@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@jbx-protocol/contracts-v2/-/contracts-v2-4.0.0.tgz#0e1758c3be932993c7dbfa6b23addd10cc1855ea"
@@ -826,6 +835,11 @@
   dependencies:
     "@types/sinon-chai" "^3.2.3"
     "@types/web3" "1.0.19"
+
+"@openzeppelin/contracts@^4.1.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.6.0.tgz#c91cf64bc27f573836dba4122758b4743418c1b3"
+  integrity sha512-8vi4d50NNya/bQqCmaVzvHNmwHvS0OBKb7HNtuNwEE3scXWrP31fKQoGxNMT+KbzmrNZzatE3QK5p2gFONI/hg==
 
 "@openzeppelin/contracts@^4.5.0-rc.0":
   version "4.5.0-rc.0"
