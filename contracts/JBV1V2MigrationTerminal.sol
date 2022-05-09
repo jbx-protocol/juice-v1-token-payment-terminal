@@ -288,12 +288,7 @@ contract JBV1V2Terminal is
     // Increment the balance.
     balanceOf[_projectId][_v1ProjectId] = balanceOf[_projectId][_v1ProjectId] + _amount;
 
-    // if _preferClaimedTokens, try to transfer ERC-20's to this contract.
-    // else try to transfer via ticketBooth.
-    // Increment balance of token for the project.
-    // mint the correct amount of tokens back using JBController.
-    // Mint the tokens if needed.
-    // Set token count to be the number of tokens minted for the beneficiary instead of the total amount.
+    // Mint the tokens for the beneficary.
     beneficiaryTokenCount = IJBController(directory.controllerOf(_projectId)).mintTokensOf(
       _projectId,
       _amount,
