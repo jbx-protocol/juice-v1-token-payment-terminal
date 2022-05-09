@@ -210,17 +210,18 @@ contract JBV1V2Terminal is
     address payable _beneficiary,
     string calldata _memo,
     bytes calldata _metadata
-  )
-    external
-    override
-    requirePermission(_holder, _projectId, JBOperations.REDEEM)
-    returns (uint256 reclaimAmount)
-  {
+  ) external pure override returns (uint256) {
+    _holder; // Prevents unused var compiler and natspec complaints.
+    _projectId; // Prevents unused var compiler and natspec complaints.
+    _tokenCount; // Prevents unused var compiler and natspec complaints.
     _token; // Prevents unused var compiler and natspec complaints.
     _minReturnedTokens; // Prevents unused var compiler and natspec complaints.
+    _beneficiary; // Prevents unused var compiler and natspec complaints.
+    _memo; // Prevents unused var compiler and natspec complaints.
     _metadata; // Prevents unused var compiler and natspec complaints.
 
-    return _redeemTokensOf(_holder, _projectId, _tokenCount, _beneficiary, _memo);
+    revert NOT_SUPPORTED();
+    // return _redeemTokensOf(_holder, _projectId, _tokenCount, _beneficiary, _memo);
   }
 
   function _pay(
@@ -312,44 +313,47 @@ contract JBV1V2Terminal is
     );
   }
 
-  function _redeemTokensOf(
-    address _holder,
-    uint256 _projectId,
-    uint256 _tokenCount,
-    address payable _beneficiary,
-    string calldata _memo
-  ) private returns (uint256 reclaimAmount) {
-    // Make sure an token count is specified.
-    if (_tokenCount == 0) revert INVALID_AMOUNT();
+  // function _redeemTokensOf(
+  //   address _holder,
+  //   uint256 _projectId,
+  //   uint256 _tokenCount,
+  //   address payable _beneficiary,
+  //   string calldata _memo
+  // ) private returns (uint256 reclaimAmount) {
+  //   // Make sure an token count is specified.
+  //   if (_tokenCount == 0) revert INVALID_AMOUNT();
 
-    // Get the v1 project.
-    uint256 _v1ProjectId = v1ProjectIdOf[_projectId];
+  //   // Get the v1 project.
+  //   uint256 _v1ProjectId = v1ProjectIdOf[_projectId];
 
-    // Update the balance.
-    balanceOf[_projectId][_v1ProjectId] = balanceOf[_projectId][_v1ProjectId] - _tokenCount;
+  //   // Make sure an token count is specified.
+  //   if (ticketBooth == 0) revert INVALID_AMOUNT();
 
-    IJBController(directory.controllerOf(_projectId)).burnTokensOf(
-      _holder,
-      _projectId,
-      _tokenCount,
-      '',
-      false
-    );
+  //   // Update the balance.
+  //   balanceOf[_projectId][_v1ProjectId] = balanceOf[_projectId][_v1ProjectId] - _tokenCount;
 
-    // The amount being reclaimed is the same as the amount being sent.
-    reclaimAmount = _tokenCount;
+  //   IJBController(directory.controllerOf(_projectId)).burnTokensOf(
+  //     _holder,
+  //     _projectId,
+  //     _tokenCount,
+  //     '',
+  //     false
+  //   );
 
-    // Transfer tokens to the holder terminal from this terminal.
-    ticketBooth.transfer(address(this), _v1ProjectId, reclaimAmount, _beneficiary);
+  //   // The amount being reclaimed is the same as the amount being sent.
+  //   reclaimAmount = _tokenCount;
 
-    emit RedeemTokens(
-      _projectId,
-      _holder,
-      _beneficiary,
-      _tokenCount,
-      reclaimAmount,
-      _memo,
-      msg.sender
-    );
-  }
+  //   // Transfer tokens to the holder terminal from this terminal.
+  //   ticketBooth.transfer(address(this), _v1ProjectId, reclaimAmount, _beneficiary);
+
+  //   emit RedeemTokens(
+  //     _projectId,
+  //     _holder,
+  //     _beneficiary,
+  //     _tokenCount,
+  //     reclaimAmount,
+  //     _memo,
+  //     msg.sender
+  //   );
+  // }
 }
