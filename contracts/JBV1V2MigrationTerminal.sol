@@ -288,48 +288,4 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
       msg.sender
     );
   }
-
-  // function _redeemTokensOf(
-  //   address _holder,
-  //   uint256 _projectId,
-  //   uint256 _tokenCount,
-  //   address payable _beneficiary,
-  //   string calldata _memo
-  // ) private returns (uint256 reclaimAmount) {
-  //   // Make sure an token count is specified.
-  //   if (_tokenCount == 0) revert INVALID_AMOUNT();
-
-  //   // Get the v1 project.
-  //   uint256 _v1ProjectId = v1ProjectIdOf[_projectId];
-
-  //   // Make sure an token count is specified.
-  //   if (ticketBooth == 0) revert INVALID_AMOUNT();
-
-  //   // Update the balance.
-  //   balanceOf[_projectId][_v1ProjectId] = balanceOf[_projectId][_v1ProjectId] - _tokenCount;
-
-  //   IJBController(directory.controllerOf(_projectId)).burnTokensOf(
-  //     _holder,
-  //     _projectId,
-  //     _tokenCount,
-  //     '',
-  //     false
-  //   );
-
-  //   // The amount being reclaimed is the same as the amount being sent.
-  //   reclaimAmount = _tokenCount;
-
-  //   // Transfer tokens to the holder terminal from this terminal.
-  //   ticketBooth.transfer(address(this), _v1ProjectId, reclaimAmount, _beneficiary);
-
-  //   emit RedeemTokens(
-  //     _projectId,
-  //     _holder,
-  //     _beneficiary,
-  //     _tokenCount,
-  //     reclaimAmount,
-  //     _memo,
-  //     msg.sender
-  //   );
-  // }
 }
