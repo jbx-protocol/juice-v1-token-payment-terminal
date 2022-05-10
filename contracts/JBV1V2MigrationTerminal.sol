@@ -214,7 +214,7 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
     // Make sure the v1 project has been set.
     if (_v1ProjectId == 0) revert V1_PROJECT_NOT_SET();
 
-    // Get a reference to the v1 project's ERC20 tickets.
+    // Get a reference to the v1 project's ERC20 tokens.
     ITickets _v1Token = ticketBooth.ticketsOf(_v1ProjectId);
 
     // The amount of tokens to migrate.
@@ -246,12 +246,21 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
     uint256 _unclaimedTokensToMigrate = _amount - _claimedTokensToMigrate;
 
     if (_claimedTokensToMigrate > 0)
-      // Transfer tokens to this terminal from the msg sender.
-      IERC20(_v1Token).transferFrom(msg.sender, payable(address(this)), _claimedTokensToMigrate);
+      // Transfer tokens to the project owner from the msg sender.
+      IERC20(_v1Token).transferFrom(
+        msg.sender,
+        projects.ownerOf(_projectId),
+        _claimedTokensToMigrate
+      );
 
     if (_unclaimedTokensToMigrate > 0)
-      // Transfer tokens to this terminal from the msg sender.
-      ticketBooth.transfer(msg.sender, _v1ProjectId, _unclaimedTokensToMigrate, address(this));
+      // Transfer tokens to the project owner from the msg sender.
+      ticketBooth.transfer(
+        msg.sender,
+        _v1ProjectId,
+        _unclaimedTokensToMigrate,
+        projects.ownerOf(_projectId)
+      );
 
     // Increment the balance.
     balanceOf[_projectId][_v1ProjectId] = balanceOf[_projectId][_v1ProjectId] + _amount;
