@@ -176,6 +176,12 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
     _minReturnedTokens; // Prevents unused var compiler and natspec complaints.
     _metadata; // Prevents unused var compiler and natspec complaints.
 
+    // Make sure an amount is specified.
+    if (_amount == 0) revert INVALID_AMOUNT();
+
+    // Make sure no ETH was sent.
+    if (msg.value > 0) revert NO_MSG_VALUE_ALLOWED();
+
     return _pay(_projectId, _amount, _beneficiary, _preferClaimedTokens, _memo);
   }
 
@@ -202,12 +208,6 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
     bool _preferClaimedTokens,
     string calldata _memo
   ) private returns (uint256 beneficiaryTokenCount) {
-    // Make sure an amount is specified.
-    if (_amount == 0) revert INVALID_AMOUNT();
-
-    // Make sure no ETH was sent.
-    if (msg.value > 0) revert NO_MSG_VALUE_ALLOWED();
-
     // Get the v1 project.
     uint256 _v1ProjectId = v1ProjectIdOf[_projectId];
 
