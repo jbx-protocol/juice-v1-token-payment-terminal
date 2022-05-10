@@ -10,12 +10,7 @@ import '@jbx-protocol/contracts-v2/contracts/abstract/JBOperatable.sol';
 import '@jbx-protocol/contracts-v2/contracts/libraries/JBOperations.sol';
 import './interfaces/IJBV1V2MigrationTerminal.sol';
 
-contract JBV1V2Terminal is
-  IJBV1V2MigrationTerminal,
-  IJBPaymentTerminal,
-  IJBRedemptionTerminal,
-  JBOperatable
-{
+contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOperatable {
   //*********************************************************************//
   // --------------------------- custom errors ------------------------- //
   //*********************************************************************//
@@ -123,7 +118,6 @@ contract JBV1V2Terminal is
   function supportsInterface(bytes4 _interfaceId) external pure override returns (bool) {
     return
       _interfaceId == type(IJBPaymentTerminal).interfaceId ||
-      _interfaceId == type(IJBRedemptionTerminal).interfaceId ||
       _interfaceId == type(IJBV1V2MigrationTerminal).interfaceId;
   }
 
@@ -199,29 +193,6 @@ contract JBV1V2Terminal is
     _metadata; // Prevents unused var compiler and natspec complaints.
 
     revert NOT_SUPPORTED();
-  }
-
-  function redeemTokensOf(
-    address _holder,
-    uint256 _projectId,
-    uint256 _tokenCount,
-    address _token,
-    uint256 _minReturnedTokens,
-    address payable _beneficiary,
-    string calldata _memo,
-    bytes calldata _metadata
-  ) external pure override returns (uint256) {
-    _holder; // Prevents unused var compiler and natspec complaints.
-    _projectId; // Prevents unused var compiler and natspec complaints.
-    _tokenCount; // Prevents unused var compiler and natspec complaints.
-    _token; // Prevents unused var compiler and natspec complaints.
-    _minReturnedTokens; // Prevents unused var compiler and natspec complaints.
-    _beneficiary; // Prevents unused var compiler and natspec complaints.
-    _memo; // Prevents unused var compiler and natspec complaints.
-    _metadata; // Prevents unused var compiler and natspec complaints.
-
-    revert NOT_SUPPORTED();
-    // return _redeemTokensOf(_holder, _projectId, _tokenCount, _beneficiary, _memo);
   }
 
   function _pay(
