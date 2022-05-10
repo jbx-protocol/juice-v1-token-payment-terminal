@@ -274,13 +274,9 @@ contract JBV1V2Terminal is
     // The amount of unclaimed tokens to migrate.
     uint256 _unclaimedTokensToMigrate = _amount - _claimedTokensToMigrate;
 
-    if (_claimedTokensToMigrate > 0) {
+    if (_claimedTokensToMigrate > 0)
       // Transfer tokens to this terminal from the msg sender.
       IERC20(_v1Token).transferFrom(msg.sender, payable(address(this)), _claimedTokensToMigrate);
-
-      // Send the claimed tokens back to being unclaimed.
-      ticketBooth.stake(address(this), _v1ProjectId, _claimedTokensToMigrate);
-    }
 
     if (_unclaimedTokensToMigrate > 0)
       // Transfer tokens to this terminal from the msg sender.
