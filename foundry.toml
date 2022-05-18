@@ -7,7 +7,7 @@ remappings = [
     '@jbx-protocol/contracts-v2=lib/juice-contracts-v2',
     '@jbox/sol/=lib/juice-contracts-v1/',
     '@openzeppelin=lib/openzeppelin-contracts',
-    '@paulrberg=lib/contracts',
+    '@paulrberg/contracts=lib/contracts/contracts',
     'ds-test/=lib/ds-test/src/',
     'forge-std/=lib/forge-std/src/',
 ]
