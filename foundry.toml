@@ -4,10 +4,10 @@ test = 'test'
 out = 'out'
 libs = ['lib']
 remappings = [
-    '@chainlink=lib/chainlink/',
-    '@jbx-protocol-v2=lib/juice-contracts-v2',
+    '@jbx-protocol/contracts-v2=lib/juice-contracts-v2',
+    '@jbox/sol/=lib/juice-contracts-v1/',
     '@openzeppelin=lib/openzeppelin-contracts',
-    '@paulrberg/contracts/math/=lib/prb-math/contracts',
+    '@paulrberg=lib/contracts',
     'ds-test/=lib/ds-test/src/',
     'forge-std/=lib/forge-std/src/',
 ]
