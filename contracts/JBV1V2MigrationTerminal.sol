@@ -253,14 +253,11 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
         _claimedTokensToMigrate
       );
 
-    if (_unclaimedTokensToMigrate > 0)
+    if (_unclaimedTokensToMigrate > 0) {
       // Transfer tokens to the project owner from the msg sender.
-      ticketBooth.transfer(
-        msg.sender,
-        _v1ProjectId,
-        _unclaimedTokensToMigrate,
-        projects.ownerOf(_projectId)
-      );
+      address _ownerOf = projects.ownerOf(_projectId);
+      ticketBooth.transfer(msg.sender, _v1ProjectId, _unclaimedTokensToMigrate, _ownerOf);
+    }
 
     // Increment the balance.
     balanceOf[_projectId][_v1ProjectId] = balanceOf[_projectId][_v1ProjectId] + _amount;
