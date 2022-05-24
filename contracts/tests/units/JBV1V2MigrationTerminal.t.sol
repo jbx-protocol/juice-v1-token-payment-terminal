@@ -10,7 +10,7 @@ import '../../interfaces/IJBV1V2MigrationTerminal.sol';
 import '../../JBV1V2MigrationTerminal.sol';
 import 'forge-std/Test.sol';
 
-contract TestJBV1V2Terminal is Test {
+contract TestUnitJBV1V2Terminal is Test {
   IJBOperatorStore mockOperatorStore;
   IJBProjects mockProjects;
   IJBDirectory mockDirectory;
