@@ -6,10 +6,8 @@ import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBRedemptionTerminal.so
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBController/1.sol';
 import '@jbx-protocol/contracts-v2/contracts/abstract/JBOperatable.sol';
 import '@jbx-protocol/contracts-v2/contracts/libraries/JBOperations.sol';
-
 import '../../interfaces/IJBV1V2MigrationTerminal.sol';
 import '../../JBV1V2MigrationTerminal.sol';
-
 import 'forge-std/Test.sol';
 
 contract TestJBV1V2Terminal is Test {
@@ -17,17 +15,15 @@ contract TestJBV1V2Terminal is Test {
   IJBProjects mockProjects;
   IJBDirectory mockDirectory;
   IJBController mockController;
-
   ITicketBooth mockTicketBooth;
   IERC20 mockV1JBToken;
 
-  JBV1V2Terminal migrationTerminal;
-
   address projectOwner;
   address caller;
-
   uint256 projectId = 420;
   uint256 projectIdV1 = 69;
+
+  JBV1V2Terminal migrationTerminal;
 
   function setUp() public {
     mockOperatorStore = IJBOperatorStore(address(10));
@@ -63,6 +59,8 @@ contract TestJBV1V2Terminal is Test {
     );
   }
 
+  // ----------- setV1ProjectId(..) ---------------
+
   function testSetV1ProjectId_PassIfCallerIsOwner(uint256 _projectId, uint256 _projectIdV1) public {
     vm.mockCall(
       address(mockProjects),
@@ -93,16 +91,8 @@ contract TestJBV1V2Terminal is Test {
     migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
   }
 
-  // function pay(
-  //   uint256 _projectId,
-  //   uint256 _amount,
-  //   address _token,
-  //   address _beneficiary,
-  //   uint256 _minReturnedTokens,
-  //   bool _preferClaimedTokens,
-  //   string calldata _memo,
-  //   bytes calldata _metadata
-  // ) external payable override returns (uint256 beneficiaryTokenCount)
+  // --------------- pay(..) ---------------------
+
   function testPay_passIfTokenHolder() public {
     uint256 _unclaimedBalance = 5 ether;
     uint256 _claimedBalance = 5 ether;
@@ -422,6 +412,8 @@ contract TestJBV1V2Terminal is Test {
       new bytes(0x69)
     );
   }
+
+  // ----------- addToBalance(..) -----------------
 
   function testAddToBalance_Reverts(
     uint256 _projectId,
