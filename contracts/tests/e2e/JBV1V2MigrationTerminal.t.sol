@@ -443,4 +443,63 @@ contract TestE2EJBV1V2Terminal is TestBaseWorkflow {
     assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1 / 2);
     assertEq(_ticketsV1.balanceOf(_projectOwner), 0);
   }
+
+  /**
+   @dev this test tests the reverting flow when trying to exchange a V2 amount bigger than the V1 balance held 
+  */
+  function testMigration_FailsIfBalanceTooLow() public {
+    vm.prank(_beneficiary);
+    _terminalV1_1.pay{value: 1 ether}(
+      _projectIdV1,
+      _beneficiary,
+      'lfg',
+      /*_preferUnstakedTickets*/
+      false
+    );
+
+    // Balance before the token migration
+    uint256 totalBalanceV1 = _ticketBoothV1.balanceOf(_beneficiary, _projectIdV1);
+    uint256 unclaimedBalanceV1 = _ticketBoothV1.stakedBalanceOf(_beneficiary, _projectIdV1);
+
+    // Sanity check: we're not testing a 0 token migration
+    assertGt(totalBalanceV1, 0);
+    assertGt(unclaimedBalanceV1, 0);
+
+    // Set V1-V2 project equivalence
+    vm.prank(_projectOwner);
+    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+
+    // Authorize the migration terminal to transfer the unclaimed V1 token
+    uint256[] memory _index = new uint256[](1);
+    _index[0] = Operations.Transfer;
+
+    vm.prank(_beneficiary);
+    _operatorStoreV1.setOperator(address(migrationTerminal), _projectIdV1, _index);
+
+    // Authorize the migration terminal to mint the V2 token
+    _index[0] = JBOperations.MINT;
+
+    vm.prank(_projectOwner);
+    _jbOperatorStore.setOperator(
+      JBOperatorData({
+        operator: address(migrationTerminal),
+        domain: _projectId,
+        permissionIndexes: _index
+      })
+    );
+
+    // Migrate (try to)
+    vm.expectRevert(abi.encodeWithSignature('INSUFFICIENT_FUNDS()'));
+    vm.prank(_beneficiary);
+    migrationTerminal.pay(
+      _projectId,
+      totalBalanceV1 + 1,
+      address(0), //token
+      _beneficiary,
+      0, //_minReturnedTokens
+      false, //_preferClaimedTokens
+      'brah',
+      new bytes(0)
+    );
+  }
 }
