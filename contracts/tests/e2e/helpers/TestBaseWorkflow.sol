@@ -9,6 +9,11 @@ import '@jbx-protocol/contracts-v1/contracts/TerminalDirectory.sol';
 import '@jbx-protocol/contracts-v1/contracts/TerminalV1_1.sol';
 import '@jbx-protocol/contracts-v1/contracts/ModStore.sol';
 import '@jbx-protocol/contracts-v1/contracts/Prices.sol';
+import '@jbx-protocol/contracts-v1/contracts/interfaces/IFundingCycles.sol';
+import '@jbx-protocol/contracts-v1/contracts/interfaces/ITerminalV1_1.sol';
+import '@jbx-protocol/contracts-v1/contracts/interfaces/IModStore.sol';
+import '@jbx-protocol/contracts-v1/contracts/interfaces/IFundingCycleBallot.sol';
+import '@jbx-protocol/contracts-v1/contracts/interfaces/ITreasuryExtension.sol';
 
 import '@jbx-protocol/contracts-v2/contracts/JBController/1.sol';
 import '@jbx-protocol/contracts-v2/contracts/JBDirectory.sol';
@@ -88,6 +93,7 @@ contract TestBaseWorkflow is Test {
   AccessJBLib internal _accessJBLib;
 
   uint256 internal _projectId;
+  uint256 internal _projectIdV1;
 
   //*********************************************************************//
   // --------------------------- test setup ---------------------------- //
@@ -115,6 +121,41 @@ contract TestBaseWorkflow is Test {
       _terminalDirectoryV1,
       _projectOwner
     );
+
+    FundingCycleProperties memory _propertiesV1 = FundingCycleProperties({
+      target: 10,
+      currency: 1,
+      duration: 60,
+      cycleLimit: 10,
+      discountRate: 0,
+      ballot: IFundingCycleBallot(address(0))
+    });
+
+    FundingCycleMetadata2 memory _metadataV1 = FundingCycleMetadata2({
+      reservedRate: 10,
+      bondingCurveRate: 10,
+      reconfigurationBondingCurveRate: 0,
+      payIsPaused: false,
+      ticketPrintingIsAllowed: true,
+      treasuryExtension: ITreasuryExtension(address(0))
+    });
+
+    PayoutMod[] memory _payoutModsV1;
+    TicketMod[] memory _ticketModsV1;
+
+    _terminalV1_1.deploy(
+      _projectOwner,
+      bytes32('handle'),
+      'myURI',
+      _propertiesV1,
+      _metadataV1,
+      _payoutModsV1,
+      _ticketModsV1
+    );
+
+    _projectIdV1 = 1;
+    // Sanity check: correct project id
+    assert(_projectsV1.ownerOf(_projectIdV1) == _projectOwner);
 
     // ---- Set up V2 project ----
 
@@ -214,6 +255,19 @@ contract TestBaseWorkflow is Test {
       dataSource: address(0)
     });
 
+    _jbController.launchProjectFor(
+      _projectOwner,
+      _projectMetadata,
+      _data,
+      _metadata,
+      block.timestamp,
+      _groupedSplits,
+      _fundAccessConstraints,
+      _terminals,
+      ''
+    );
+
+    // Launch a second one, to have different project Id V1-V2
     _projectId = _jbController.launchProjectFor(
       _projectOwner,
       _projectMetadata,
