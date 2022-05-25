@@ -15,6 +15,7 @@ import '@jbx-protocol/contracts-v1/contracts/interfaces/IModStore.sol';
 import '@jbx-protocol/contracts-v1/contracts/interfaces/IFundingCycleBallot.sol';
 import '@jbx-protocol/contracts-v1/contracts/interfaces/ITreasuryExtension.sol';
 import '@jbx-protocol/contracts-v1/contracts/interfaces/ITickets.sol';
+import '@jbx-protocol/contracts-v1/contracts/libraries/Operations.sol';
 
 import '@jbx-protocol/contracts-v2/contracts/JBController/1.sol';
 import '@jbx-protocol/contracts-v2/contracts/JBDirectory.sol';
@@ -42,9 +43,9 @@ import '@jbx-protocol/contracts-v2/contracts/structs/JBPayParamsData.sol';
 import '@jbx-protocol/contracts-v2/contracts/structs/JBProjectMetadata.sol';
 import '@jbx-protocol/contracts-v2/contracts/structs/JBRedeemParamsData.sol';
 import '@jbx-protocol/contracts-v2/contracts/structs/JBSplit.sol';
-
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBPaymentTerminal.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBToken.sol';
+import '@jbx-protocol/contracts-v2/contracts/libraries/JBOperations.sol';
 
 import '@paulrberg/contracts/math/PRBMath.sol';
 
