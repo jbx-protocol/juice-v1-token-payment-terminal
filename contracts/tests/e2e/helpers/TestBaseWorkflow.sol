@@ -130,7 +130,7 @@ contract TestBaseWorkflow is Test {
     _jbPrices = new JBPrices(_projectOwner);
     vm.label(address(_jbPrices), 'JBPrices');
 
-    address contractAtNoncePlusOne = addressFrom(address(this), 5);
+    address contractAtNoncePlusOne = addressFrom(address(this), 13);
 
     _jbFundingCycleStore = new JBFundingCycleStore(IJBDirectory(contractAtNoncePlusOne));
     vm.label(address(_jbFundingCycleStore), 'JBFundingCycleStore');
