@@ -14,6 +14,7 @@ import '@jbx-protocol/contracts-v1/contracts/interfaces/ITerminalV1_1.sol';
 import '@jbx-protocol/contracts-v1/contracts/interfaces/IModStore.sol';
 import '@jbx-protocol/contracts-v1/contracts/interfaces/IFundingCycleBallot.sol';
 import '@jbx-protocol/contracts-v1/contracts/interfaces/ITreasuryExtension.sol';
+import '@jbx-protocol/contracts-v1/contracts/interfaces/ITickets.sol';
 
 import '@jbx-protocol/contracts-v2/contracts/JBController/1.sol';
 import '@jbx-protocol/contracts-v2/contracts/JBDirectory.sol';
@@ -71,6 +72,7 @@ contract TestBaseWorkflow is Test {
   TerminalV1_1 internal _terminalV1_1;
   ModStore internal _modStoreV1;
   Prices internal _pricesV1;
+  ITickets internal _ticketsV1;
 
   // ---- V2 variables ----
   JBOperatorStore internal _jbOperatorStore;
@@ -104,12 +106,25 @@ contract TestBaseWorkflow is Test {
     // ---- Set up V1 project ----
 
     _operatorStoreV1 = new OperatorStore();
+    vm.label(address(_operatorStoreV1), '_operatorStoreV1');
+
     _projectsV1 = new Projects(_operatorStoreV1);
+    vm.label(address(_projectsV1), '_projectsV1');
+
     _terminalDirectoryV1 = new TerminalDirectory(_projectsV1, _operatorStoreV1);
+    vm.label(address(_terminalDirectoryV1), '_terminalDirectoryV1');
+
     _fundingCyclesV1 = new FundingCycles(_terminalDirectoryV1);
+    vm.label(address(_fundingCyclesV1), '_fundingCyclesV1');
+
     _ticketBoothV1 = new TicketBooth(_projectsV1, _operatorStoreV1, _terminalDirectoryV1);
+    vm.label(address(_ticketBoothV1), '_ticketBoothV1');
+
     _modStoreV1 = new ModStore(_projectsV1, _operatorStoreV1, _terminalDirectoryV1);
+    vm.label(address(_modStoreV1), '_modStoreV1');
+
     _pricesV1 = new Prices();
+    vm.label(address(_pricesV1), '_pricesV1');
 
     _terminalV1_1 = new TerminalV1_1(
       _projectsV1,
@@ -121,6 +136,7 @@ contract TestBaseWorkflow is Test {
       _terminalDirectoryV1,
       _projectOwner
     );
+    vm.label(address(_terminalV1_1), '_terminalV1_1');
 
     FundingCycleProperties memory _propertiesV1 = FundingCycleProperties({
       target: 10,
@@ -157,11 +173,12 @@ contract TestBaseWorkflow is Test {
     // Sanity check: correct project id
     assert(_projectsV1.ownerOf(_projectIdV1) == _projectOwner);
 
+    vm.prank(_projectOwner);
+    _ticketBoothV1.issue(_projectIdV1, 'V1 Ticket', 'V1');
+
+    _ticketsV1 = _ticketBoothV1.ticketsOf(1);
+
     // ---- Set up V2 project ----
-
-    vm.label(_projectOwner, 'projectOwner');
-    vm.label(_beneficiary, 'beneficiary');
-
     _jbOperatorStore = new JBOperatorStore();
     vm.label(address(_jbOperatorStore), 'JBOperatorStore');
 
@@ -279,6 +296,13 @@ contract TestBaseWorkflow is Test {
       _terminals,
       ''
     );
+
+    // ---- general setup ----
+    vm.deal(_beneficiary, 100 ether);
+    vm.deal(_projectOwner, 100 ether);
+
+    vm.label(_projectOwner, 'projectOwner');
+    vm.label(_beneficiary, 'beneficiary');
   }
 
   //https://ethereum.stackexchange.com/questions/24248/how-to-calculate-an-ethereum-contracts-address-during-its-creation-using-the-so
