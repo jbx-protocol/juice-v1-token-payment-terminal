@@ -281,9 +281,20 @@ contract TestE2EJBV1V2Terminal is TestBaseWorkflow {
    @dev this test tests the flow to exchange a mix of claimed and unclaimed V1 token for
         unclaimed V2 token
   */
-  function testMigration_PassWithBothClaimedAndUnclaimedToUnclaimedToken() public {
+  function testMigration_PassWithBothClaimedAndUnclaimedToUnclaimedToken(
+    uint96 claimed,
+    uint96 unclaimed
+  ) public {
+    // Overflow check
+    unchecked {
+      vm.assume(claimed + unclaimed > claimed && claimed + unclaimed > unclaimed);
+    }
+
+    uint256 totalAmountIn = claimed + unclaimed;
+    vm.deal(_beneficiary, totalAmountIn);
+
     vm.prank(_beneficiary);
-    _terminalV1_1.pay{value: 1 ether}(
+    _terminalV1_1.pay{value: claimed}(
       _projectIdV1,
       _beneficiary,
       'lfg',
@@ -291,7 +302,7 @@ contract TestE2EJBV1V2Terminal is TestBaseWorkflow {
       true
     );
 
-    _terminalV1_1.pay{value: 2 ether}(
+    _terminalV1_1.pay{value: unclaimed}(
       _projectIdV1,
       _beneficiary,
       'lfg',
@@ -305,11 +316,6 @@ contract TestE2EJBV1V2Terminal is TestBaseWorkflow {
     uint256 claimedBalanceV1 = _ticketsV1.balanceOf(_beneficiary);
     assertEq(_jbTokenStore.balanceOf(_beneficiary, _projectId), 0);
     assertEq(_jbTokenStore.unclaimedBalanceOf(_beneficiary, _projectId), 0);
-
-    // Sanity check: we're not testing a 0 token migration
-    assertGt(totalBalanceV1, 0);
-    assertGt(unclaimedBalanceV1, 0);
-    assertGt(claimedBalanceV1, 0);
 
     // Set V1-V2 project
     vm.prank(_projectOwner);
@@ -342,7 +348,7 @@ contract TestE2EJBV1V2Terminal is TestBaseWorkflow {
     vm.prank(_beneficiary);
     migrationTerminal.pay(
       _projectId,
-      totalBalanceV1,
+      unclaimedBalanceV1,
       address(0), //token
       _beneficiary,
       0, //_minReturnedTokens
@@ -351,11 +357,23 @@ contract TestE2EJBV1V2Terminal is TestBaseWorkflow {
       new bytes(0)
     );
 
+    vm.prank(_beneficiary);
+    migrationTerminal.pay(
+      _projectId,
+      claimedBalanceV1,
+      address(0), //token
+      _beneficiary,
+      0, //_minReturnedTokens
+      true, //_preferClaimedTokens
+      'brah',
+      new bytes(0)
+    );
+
     // Check the new balances:
     // V2 token
     assertEq(_jbTokenStore.balanceOf(_beneficiary, _projectId), totalBalanceV1);
-    assertEq(_jbTokenStore.unclaimedBalanceOf(_beneficiary, _projectId), totalBalanceV1);
-    assertEq(_tokenV2.balanceOf(_beneficiary, _projectId), 0);
+    assertEq(_jbTokenStore.unclaimedBalanceOf(_beneficiary, _projectId), unclaimedBalanceV1);
+    assertEq(_tokenV2.balanceOf(_beneficiary, _projectId), claimedBalanceV1);
 
     // V1 beneficiary token
     assertEq(_ticketBoothV1.balanceOf(_beneficiary, _projectIdV1), 0);
