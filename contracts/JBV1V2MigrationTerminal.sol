@@ -154,7 +154,10 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
     Only a project owner can initiate token migration.
   */
   function setV1ProjectId(uint256 _projectId, uint256 _v1ProjectId) external override {
-    if (msg.sender != projects.ownerOf(_projectId)) revert NOT_ALLOWED();
+    if (
+      msg.sender != projects.ownerOf(_projectId) ||
+      msg.sender != ticketBooth.projects().ownerOf(_v1ProjectId)
+    ) revert NOT_ALLOWED();
 
     // Store the mapping.
     v1ProjectIdOf[_projectId] = _v1ProjectId;

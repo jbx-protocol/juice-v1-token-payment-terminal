@@ -16,6 +16,7 @@ contract TestUnitJBV1V2Terminal is Test {
   IJBDirectory mockDirectory;
   IJBController mockController;
   ITicketBooth mockTicketBooth;
+  IProjects mockProjectsV1;
   IERC20 mockV1JBToken;
 
   address projectOwner;
@@ -32,11 +33,13 @@ contract TestUnitJBV1V2Terminal is Test {
     mockTicketBooth = ITicketBooth(address(40));
     mockV1JBToken = IERC20(address(50));
     mockController = IJBController(address(60));
+    mockProjectsV1 = IProjects(address(70));
     projectOwner = address(69);
     caller = address(420);
 
     vm.etch(address(mockOperatorStore), new bytes(0x69));
     vm.etch(address(mockProjects), new bytes(0x69));
+    vm.etch(address(mockProjectsV1), new bytes(0x69));
     vm.etch(address(mockDirectory), new bytes(0x69));
     vm.etch(address(mockTicketBooth), new bytes(0x69));
     vm.etch(address(mockV1JBToken), new bytes(0x69));
@@ -44,6 +47,7 @@ contract TestUnitJBV1V2Terminal is Test {
 
     vm.label(address(mockOperatorStore), 'mockOperatorStore');
     vm.label(address(mockProjects), 'mockProjects');
+    vm.label(address(mockProjectsV1), 'mockProjectsV1');
     vm.label(address(mockDirectory), 'mockDirectory');
     vm.label(address(mockTicketBooth), 'mockTicketBooth');
     vm.label(address(mockV1JBToken), 'mockV1JBToken');
@@ -57,6 +61,12 @@ contract TestUnitJBV1V2Terminal is Test {
       mockDirectory,
       mockTicketBooth
     );
+
+    vm.mockCall(
+      address(mockTicketBooth),
+      abi.encodeWithSelector(ITicketBooth.projects.selector),
+      abi.encode(mockProjectsV1)
+    );
   }
 
   // ----------- setV1ProjectId(..) ---------------
@@ -65,6 +75,12 @@ contract TestUnitJBV1V2Terminal is Test {
     vm.mockCall(
       address(mockProjects),
       abi.encodeWithSelector(IERC721.ownerOf.selector, _projectId),
+      abi.encode(projectOwner)
+    );
+
+    vm.mockCall(
+      address(mockProjectsV1),
+      abi.encodeWithSelector(IERC721.ownerOf.selector, _projectIdV1),
       abi.encode(projectOwner)
     );
 
@@ -86,7 +102,44 @@ contract TestUnitJBV1V2Terminal is Test {
       abi.encode(projectOwner)
     );
 
+    vm.mockCall(
+      address(mockProjectsV1),
+      abi.encodeWithSelector(IERC721.ownerOf.selector, _projectIdV1),
+      abi.encode(projectOwner)
+    );
+
     vm.prank(_caller);
+    vm.expectRevert(abi.encodeWithSignature('NOT_ALLOWED()'));
+    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+  }
+
+  function testSetV1ProjectId_RevertIfDifferentV1V2Owners(
+    uint256 _projectId,
+    uint256 _projectIdV1,
+    address _projectOwnerV2,
+    address _projectOwnerV1
+  ) public {
+    vm.assume(_projectOwnerV1 != _projectOwnerV2);
+
+    vm.mockCall(
+      address(mockProjects),
+      abi.encodeWithSelector(IERC721.ownerOf.selector, _projectId),
+      abi.encode(_projectOwnerV2)
+    );
+
+    vm.mockCall(
+      address(mockProjectsV1),
+      abi.encodeWithSelector(IERC721.ownerOf.selector, _projectIdV1),
+      abi.encode(_projectOwnerV1)
+    );
+
+    // Revert for both projectOwner calling:
+
+    vm.prank(_projectOwnerV1);
+    vm.expectRevert(abi.encodeWithSignature('NOT_ALLOWED()'));
+    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+
+    vm.prank(_projectOwnerV2);
     vm.expectRevert(abi.encodeWithSignature('NOT_ALLOWED()'));
     migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
   }
@@ -102,6 +155,12 @@ contract TestUnitJBV1V2Terminal is Test {
     vm.mockCall(
       address(mockProjects),
       abi.encodeWithSelector(IERC721.ownerOf.selector, projectId),
+      abi.encode(projectOwner)
+    );
+
+    vm.mockCall(
+      address(mockProjectsV1),
+      abi.encodeWithSelector(IERC721.ownerOf.selector, projectIdV1),
       abi.encode(projectOwner)
     );
 
@@ -271,6 +330,12 @@ contract TestUnitJBV1V2Terminal is Test {
       abi.encode(projectOwner)
     );
 
+    vm.mockCall(
+      address(mockProjectsV1),
+      abi.encodeWithSelector(IERC721.ownerOf.selector, projectIdV1),
+      abi.encode(projectOwner)
+    );
+
     vm.prank(projectOwner);
     migrationTerminal.setV1ProjectId(projectId, projectIdV1);
 
@@ -324,6 +389,12 @@ contract TestUnitJBV1V2Terminal is Test {
     vm.mockCall(
       address(mockProjects),
       abi.encodeWithSelector(IERC721.ownerOf.selector, projectId),
+      abi.encode(projectOwner)
+    );
+
+    vm.mockCall(
+      address(mockProjectsV1),
+      abi.encodeWithSelector(IERC721.ownerOf.selector, projectIdV1),
       abi.encode(projectOwner)
     );
 
