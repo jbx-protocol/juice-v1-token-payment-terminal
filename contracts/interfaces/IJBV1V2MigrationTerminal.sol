@@ -36,7 +36,5 @@ interface IJBV1V2MigrationTerminal {
 
   function v1ProjectIdOf(uint256 _projectId) external view returns (uint256);
 
-  function balanceOf(uint256 _projectId, uint256 _v1ProjectId) external view returns (uint256);
-
   function setV1ProjectId(uint256 _projectId, uint256 _v1ProjectId) external;
 }
