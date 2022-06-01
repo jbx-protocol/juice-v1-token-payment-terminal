@@ -57,12 +57,6 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
   mapping(uint256 => uint256) public override v1ProjectIdOf;
 
   /** 
-    @notice 
-    Unused - for interface completion
-  */
-  mapping(uint256 => mapping(uint256 => uint256)) public override balanceOf;
-
-  /** 
     @notice
     A flag indicating if this terminal accepts the specified token.
 
