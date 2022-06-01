@@ -58,10 +58,7 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
 
   /** 
     @notice 
-    The balance of a project for a particular token.
-
-    _projectId The ID of the project to get a v1 project token balance of.
-    _v1ProjectId The v1 project Id to get a token balance of.
+    Unused - for interface completion
   */
   mapping(uint256 => mapping(uint256 => uint256)) public override balanceOf;
 
@@ -154,7 +151,10 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
     Only a project owner can initiate token migration.
   */
   function setV1ProjectId(uint256 _projectId, uint256 _v1ProjectId) external override {
-    if (msg.sender != projects.ownerOf(_projectId)) revert NOT_ALLOWED();
+    if (
+      msg.sender != projects.ownerOf(_projectId) ||
+      msg.sender != ticketBooth.projects().ownerOf(_v1ProjectId)
+    ) revert NOT_ALLOWED();
 
     // Store the mapping.
     v1ProjectIdOf[_projectId] = _v1ProjectId;
@@ -245,22 +245,24 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
     // The amount of unclaimed tokens to migrate.
     uint256 _unclaimedTokensToMigrate = _amount - _claimedTokensToMigrate;
 
+    address _projectOwner;
+
     if (_claimedTokensToMigrate > 0)
       // Transfer tokens to the project owner from the msg sender.
       IERC20(_v1Token).transferFrom(
         msg.sender,
-        projects.ownerOf(_projectId),
+        _projectOwner = projects.ownerOf(_projectId),
         _claimedTokensToMigrate
       );
 
-    if (_unclaimedTokensToMigrate > 0) {
+    if (_unclaimedTokensToMigrate > 0)
       // Transfer tokens to the project owner from the msg sender.
-      address _ownerOf = projects.ownerOf(_projectId);
-      ticketBooth.transfer(msg.sender, _v1ProjectId, _unclaimedTokensToMigrate, _ownerOf);
-    }
-
-    // Increment the balance.
-    balanceOf[_projectId][_v1ProjectId] = balanceOf[_projectId][_v1ProjectId] + _amount;
+      ticketBooth.transfer(
+        msg.sender,
+        _v1ProjectId,
+        _unclaimedTokensToMigrate,
+        _projectOwner == address(0) ? projects.ownerOf(_projectId) : _projectOwner
+      );
 
     // Mint the tokens for the beneficary.
     beneficiaryTokenCount = IJBController(directory.controllerOf(_projectId)).mintTokensOf(
