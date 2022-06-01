@@ -245,24 +245,15 @@ contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOpera
     // The amount of unclaimed tokens to migrate.
     uint256 _unclaimedTokensToMigrate = _amount - _claimedTokensToMigrate;
 
-    address _projectOwner;
+    address _projectOwner = projects.ownerOf(_projectId);
 
     if (_claimedTokensToMigrate > 0)
       // Transfer tokens to the project owner from the msg sender.
-      IERC20(_v1Token).transferFrom(
-        msg.sender,
-        _projectOwner = projects.ownerOf(_projectId),
-        _claimedTokensToMigrate
-      );
+      IERC20(_v1Token).transferFrom(msg.sender, _projectOwner, _claimedTokensToMigrate);
 
     if (_unclaimedTokensToMigrate > 0)
       // Transfer tokens to the project owner from the msg sender.
-      ticketBooth.transfer(
-        msg.sender,
-        _v1ProjectId,
-        _unclaimedTokensToMigrate,
-        _projectOwner == address(0) ? projects.ownerOf(_projectId) : _projectOwner
-      );
+      ticketBooth.transfer(msg.sender, _v1ProjectId, _unclaimedTokensToMigrate, _projectOwner);
 
     // Mint the tokens for the beneficary.
     beneficiaryTokenCount = IJBController(directory.controllerOf(_projectId)).mintTokensOf(
