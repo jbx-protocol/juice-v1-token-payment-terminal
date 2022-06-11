@@ -6,14 +6,14 @@ import '../../JBV1V2MigrationTerminal.sol';
 
 import './helpers/TestBaseWorkflow.sol';
 
-contract TestE2EJBV1V2Terminal is TestBaseWorkflow {
-  JBV1V2Terminal migrationTerminal;
+contract TestE2EJBV1V2MigrationTerminal is TestBaseWorkflow {
+  JBV1V2MigrationTerminal migrationTerminal;
 
   function setUp() public override {
     super.setUp();
 
     // Create new migration terminal
-    migrationTerminal = new JBV1V2Terminal(
+    migrationTerminal = new JBV1V2MigrationTerminal(
       _jbOperatorStore,
       _jbProjects,
       _jbDirectory,

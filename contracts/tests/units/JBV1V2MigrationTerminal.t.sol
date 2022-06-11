@@ -10,7 +10,7 @@ import '../../interfaces/IJBV1V2MigrationTerminal.sol';
 import '../../JBV1V2MigrationTerminal.sol';
 import 'forge-std/Test.sol';
 
-contract TestUnitJBV1V2Terminal is Test {
+contract TestUnitJBV1V2MigrationTerminal is Test {
   IJBOperatorStore mockOperatorStore;
   IJBProjects mockProjects;
   IJBDirectory mockDirectory;
@@ -24,7 +24,7 @@ contract TestUnitJBV1V2Terminal is Test {
   uint256 projectId = 420;
   uint256 projectIdV1 = 69;
 
-  JBV1V2Terminal migrationTerminal;
+  JBV1V2MigrationTerminal migrationTerminal;
 
   function setUp() public {
     mockOperatorStore = IJBOperatorStore(address(10));
@@ -55,7 +55,7 @@ contract TestUnitJBV1V2Terminal is Test {
     vm.label(projectOwner, 'projectOwner');
     vm.label(caller, 'caller');
 
-    migrationTerminal = new JBV1V2Terminal(
+    migrationTerminal = new JBV1V2MigrationTerminal(
       mockOperatorStore,
       mockProjects,
       mockDirectory,

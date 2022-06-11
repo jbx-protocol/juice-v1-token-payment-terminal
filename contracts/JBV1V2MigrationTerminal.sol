@@ -10,7 +10,7 @@ import '@jbx-protocol/contracts-v2/contracts/abstract/JBOperatable.sol';
 import '@jbx-protocol/contracts-v2/contracts/libraries/JBOperations.sol';
 import './interfaces/IJBV1V2MigrationTerminal.sol';
 
-contract JBV1V2Terminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOperatable {
+contract JBV1V2MigrationTerminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal, JBOperatable {
   //*********************************************************************//
   // --------------------------- custom errors ------------------------- //
   //*********************************************************************//
