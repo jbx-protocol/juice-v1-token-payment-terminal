@@ -18,14 +18,11 @@ interface IJBV1V2MigrationTerminal {
     address caller
   );
 
-  event RedeemTokens(
+  event ReleaseV1Token(
     uint256 indexed projectId,
-    address holder,
-    address beneficiary,
-    uint256 tokenCount,
-    uint256 reclaimedAmount,
-    string memo,
-    address caller
+    uint256 unclaimedBalance,
+    uint256 claimedBalance,
+    address projectOwner
   );
 
   function ticketBooth() external view returns (ITicketBooth);
@@ -36,5 +33,9 @@ interface IJBV1V2MigrationTerminal {
 
   function v1ProjectIdOf(uint256 _projectId) external view returns (uint256);
 
+  function finalized(uint256 _projectId) external view returns (bool);
+
   function setV1ProjectId(uint256 _projectId, uint256 _v1ProjectId) external;
+
+  function releaseV1Token(uint256 _projectId) external;
 }

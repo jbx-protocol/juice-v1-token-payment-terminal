@@ -14,6 +14,7 @@ contract JBV1V2MigrationTerminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal
   //*********************************************************************//
   // --------------------------- custom errors ------------------------- //
   //*********************************************************************//
+  error MIGRATION_TERMINATED();
   error INSUFFICIENT_FUNDS();
   error INVALID_AMOUNT();
   error NO_MSG_VALUE_ALLOWED();
@@ -55,6 +56,14 @@ contract JBV1V2MigrationTerminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal
     _projectId The ID of the project to accept migrations for.
   */
   mapping(uint256 => uint256) public override v1ProjectIdOf;
+
+  /** 
+    @notice 
+    The V1-V2 token migration status.
+
+    _projectId The ID of the project to check the migration status.
+  */
+  mapping(uint256 => bool) public override finalized;
 
   /** 
     @notice
@@ -170,6 +179,9 @@ contract JBV1V2MigrationTerminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal
     _minReturnedTokens; // Prevents unused var compiler and natspec complaints.
     _metadata; // Prevents unused var compiler and natspec complaints.
 
+    // Make sure the migration hasn't already been done
+    if (finalized[_projectId]) revert MIGRATION_TERMINATED();
+
     // Make sure an amount is specified.
     if (_amount == 0) revert INVALID_AMOUNT();
 
@@ -177,6 +189,35 @@ contract JBV1V2MigrationTerminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal
     if (msg.value > 0) revert NO_MSG_VALUE_ALLOWED();
 
     return _pay(_projectId, _amount, _beneficiary, _preferClaimedTokens, _memo);
+  }
+
+  function releaseV1Token(uint256 _v1ProjectId) external override {
+    // Make sure only the v1 project owner can retrieve the token
+    if (msg.sender != ticketBooth.projects().ownerOf(_v1ProjectId)) revert NOT_ALLOWED();
+
+    // Make sure v1 token haven't been released previously
+    if (finalized[_v1ProjectId]) revert MIGRATION_TERMINATED();
+
+    // Get a reference to the v1 project's ERC20 tokens.
+    ITickets _v1Token = ticketBooth.ticketsOf(_v1ProjectId);
+
+    // Get a reference to this terminal unclaimed balance.
+    uint256 _unclaimedBalance = ticketBooth.stakedBalanceOf(address(this), _v1ProjectId);
+
+    // Get a reference to this terminal erc20 balance.
+    uint256 _claimedBalance = _v1Token == ITickets(address(0))
+      ? 0
+      : _v1Token.balanceOf(address(this));
+
+    // Finalize the migration process
+    finalized[_v1ProjectId] = true;
+
+    // Transfer claimed and unclaimed token to the v1 project owner
+    if (_claimedBalance != 0) _v1Token.transfer(msg.sender, _claimedBalance);
+    if (_unclaimedBalance != 0)
+      ticketBooth.transfer(address(this), _v1ProjectId, _unclaimedBalance, msg.sender);
+
+    emit ReleaseV1Token(_v1ProjectId, _unclaimedBalance, _claimedBalance, msg.sender);
   }
 
   function addToBalanceOf(
@@ -239,15 +280,13 @@ contract JBV1V2MigrationTerminal is IJBV1V2MigrationTerminal, IJBPaymentTerminal
     // The amount of unclaimed tokens to migrate.
     uint256 _unclaimedTokensToMigrate = _amount - _claimedTokensToMigrate;
 
-    address _projectOwner = projects.ownerOf(_projectId);
+    if (_claimedTokensToMigrate != 0)
+      // Transfer tokens to this terminal from the msg sender.
+      IERC20(_v1Token).transferFrom(msg.sender, address(this), _claimedTokensToMigrate);
 
-    if (_claimedTokensToMigrate > 0)
-      // Transfer tokens to the project owner from the msg sender.
-      IERC20(_v1Token).transferFrom(msg.sender, _projectOwner, _claimedTokensToMigrate);
-
-    if (_unclaimedTokensToMigrate > 0)
-      // Transfer tokens to the project owner from the msg sender.
-      ticketBooth.transfer(msg.sender, _v1ProjectId, _unclaimedTokensToMigrate, _projectOwner);
+    if (_unclaimedTokensToMigrate != 0)
+      // Transfer tokens to this terminal from the msg sender.
+      ticketBooth.transfer(msg.sender, _v1ProjectId, _unclaimedTokensToMigrate, address(this));
 
     // Mint the tokens for the beneficary.
     beneficiaryTokenCount = IJBController(directory.controllerOf(_projectId)).mintTokensOf(
