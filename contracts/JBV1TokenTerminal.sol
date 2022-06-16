@@ -210,7 +210,7 @@ contract JBV1TokenTerminal is IJBV1TokenTerminal, IJBPaymentTerminal, JBOperatab
     @param _memo A memo to pass along to the emitted event. 
     @param _metadata Bytes to send along to the data source, delegate, and emitted event, if provided. This terminal ignores this property because there's no data source.
 
-    @return The number of v2 tokens minted for the beneficiary, as a fixed point number with 18 decimals.
+    @return beneficiaryTokenCount The number of v2 tokens minted for the beneficiary, as a fixed point number with 18 decimals.
   */
   function pay(
     uint256 _projectId,
@@ -317,7 +317,7 @@ contract JBV1TokenTerminal is IJBV1TokenTerminal, IJBPaymentTerminal, JBOperatab
     @param _preferClaimedTokens A flag indicating whether the request prefers to mint v2 project tokens into the beneficiaries wallet rather than leaving them unclaimed. This is only possible if the project has an attached token contract. Leaving them unclaimed saves gas.
     @param _memo A memo to pass along to the emitted event. 
 
-    @return The number of v2 tokens minted for the beneficiary, as a fixed point number with 18 decimals.
+    @return beneficiaryTokenCount The number of v2 tokens minted for the beneficiary, as a fixed point number with 18 decimals.
   */
   function _pay(
     uint256 _projectId,

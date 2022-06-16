@@ -38,5 +38,5 @@ interface IJBV1TokenTerminal {
 
   function setV1ProjectId(uint256 _projectId, uint256 _v1ProjectId) external;
 
-  function releaseV1Token(uint256 _projectId) external;
+  function releaseV1Token(uint256 _projectId, address _beneficiary) external;
 }
