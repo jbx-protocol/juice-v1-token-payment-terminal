@@ -1,22 +1,15 @@
-node_modules
 .env
-*.txt
-
-# Foundry
+node_modules
+cache
+mnemonic.txt
+pk.txt
+.DS_Store 
 out
 
-# Hardhat files
-cache
-artifacts
-deployments/localhost/**
+# Keep related abi
+out/*
+!out/JBV1TokenTerminal.sol/*
 
-# Mac OSX
-.DS_Store
-
-# Code coverage reports
-coverage/
-coverage.json
-
-# VSCode
-workspace.code-workspace
-.vscode/
+# Keep the latest deployment only
+broadcast/*/*
+!broadcast/*/run-latest.json

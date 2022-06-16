@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.6;
 
-import '../../interfaces/IJBV1V2MigrationTerminal.sol';
-import '../../JBV1V2MigrationTerminal.sol';
+import '../../interfaces/IJBV1TokenTerminal.sol';
+import '../../JBV1TokenTerminal.sol';
 
 import './helpers/TestBaseWorkflow.sol';
 
-contract TestE2EJBV1V2MigrationTerminal is TestBaseWorkflow {
-  JBV1V2MigrationTerminal migrationTerminal;
+contract TestE2EJBV1TokenTerminal is TestBaseWorkflow {
+  JBV1TokenTerminal migrationTerminal;
 
   function setUp() public override {
     super.setUp();
 
     // Create new migration terminal
-    migrationTerminal = new JBV1V2MigrationTerminal(
+    migrationTerminal = new JBV1TokenTerminal(
       _jbOperatorStore,
       _jbProjects,
       _jbDirectory,
