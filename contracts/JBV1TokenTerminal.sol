@@ -49,6 +49,19 @@ contract JBV1TokenTerminal is IJBV1TokenTerminal, IJBPaymentTerminal, JBOperatab
   error V1_PROJECT_NOT_SET();
 
   //*********************************************************************//
+  // ---------------------------- modifiers ---------------------------- //
+  //*********************************************************************//
+
+  /** 
+    @notice 
+    A modifier that verifies this terminal is a terminal of provided project ID.
+  */
+  modifier isTerminalOf(uint256 _projectId) {
+    if (!directory.isTerminalOf(_projectId, this)) revert PROJECT_TERMINAL_MISMATCH();
+    _;
+  }
+
+  //*********************************************************************//
   // ---------------- public immutable stored properties --------------- //
   //*********************************************************************//
 
@@ -221,7 +234,7 @@ contract JBV1TokenTerminal is IJBV1TokenTerminal, IJBPaymentTerminal, JBOperatab
     bool _preferClaimedTokens,
     string calldata _memo,
     bytes calldata _metadata
-  ) external payable override returns (uint256 beneficiaryTokenCount) {
+  ) external payable override isTerminalOf(_projectId) returns (uint256 beneficiaryTokenCount) {
     _token; // Prevents unused var compiler and natspec complaints.
     _metadata; // Prevents unused var compiler and natspec complaints.
 
