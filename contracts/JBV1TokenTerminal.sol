@@ -45,6 +45,7 @@ contract JBV1TokenTerminal is IJBV1TokenTerminal, IJBPaymentTerminal, JBOperatab
   error NO_MSG_VALUE_ALLOWED();
   error NOT_ALLOWED();
   error NOT_SUPPORTED();
+  error PROJECT_TERMINAL_MISMATCH();
   error UNEXPECTED_AMOUNT();
   error V1_PROJECT_NOT_SET();
 
