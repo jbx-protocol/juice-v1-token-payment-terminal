@@ -39,7 +39,8 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
   //*********************************************************************//
   // --------------------------- custom errors ------------------------- //
   //*********************************************************************//
-  error MIGRATION_TERMINATED();
+  error TERMINATED();
+  error NOT_TERMINATED();
   error INSUFFICIENT_FUNDS();
   error INVALID_AMOUNT();
   error NO_MSG_VALUE_ALLOWED();
@@ -240,7 +241,7 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     _metadata; // Prevents unused var compiler and natspec complaints.
 
     // Make sure the migration hasn't already been finalized.
-    if (finalized[_projectId]) revert MIGRATION_TERMINATED();
+    if (finalized[_projectId]) revert TERMINATED();
 
     // Make sure an amount is specified.
     if (_amount == 0) revert INVALID_AMOUNT();
@@ -263,7 +264,7 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     if (msg.sender != ticketBooth.projects().ownerOf(_v1ProjectId)) revert NOT_ALLOWED();
 
     // Make sure v1 token conversion has finalized.
-    if (finalized[_v1ProjectId]) revert MIGRATION_TERMINATED();
+    if (!finalized[_v1ProjectId]) revert NOT_TERMINATED();
 
     // Get a reference to the v1 project's ERC20 tokens.
     ITickets _v1Token = ticketBooth.ticketsOf(_v1ProjectId);
