@@ -262,8 +262,8 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     // Make sure only the v1 project owner can retrieve the tokens.
     if (msg.sender != ticketBooth.projects().ownerOf(_v1ProjectId)) revert NOT_ALLOWED();
 
-    // Make sure v1 token conversion has finalized.
-    if (!finalized[_v1ProjectId]) revert MIGRATION_TERMINATED();
+    // Make sure v1 token conversion has not finalized.
+    if (finalized[_v1ProjectId]) revert MIGRATION_TERMINATED();
 
     // Get a reference to the v1 project's ERC20 tokens.
     ITickets _v1Token = ticketBooth.ticketsOf(_v1ProjectId);
