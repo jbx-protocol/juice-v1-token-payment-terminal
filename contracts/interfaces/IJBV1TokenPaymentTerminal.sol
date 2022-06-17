@@ -5,7 +5,7 @@ import '@jbox/sol/contracts/TicketBooth.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBDirectory.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBProjects.sol';
 
-interface IJBV1TokenTerminal {
+interface IJBV1TokenPaymentTerminal {
   event SetV1ProjectId(uint256 indexed _projectId, uint256 indexed _v1ProjectId, address caller);
 
   event Pay(

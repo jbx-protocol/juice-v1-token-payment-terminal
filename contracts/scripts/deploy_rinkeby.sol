@@ -1,7 +1,7 @@
 pragma solidity 0.8.6;
 
 import 'forge-std/Test.sol';
-import '../../contracts/JBV1TokenTerminal.sol';
+import '../../contracts/JBV1TokenPaymentTerminal.sol';
 
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBDirectory.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBOperatorStore.sol';
@@ -14,14 +14,19 @@ contract Deploy is Test {
   IJBDirectory _directory = IJBDirectory(0x1A9b04A9617ba5C9b7EBfF9668C30F41db6fC21a);
   ITicketBooth _ticketBooth = ITicketBooth(0x0d038636a670E8bd8cF7D56BC4626f2a6446cF11);
 
-  JBV1TokenTerminal migrationTerminal;
+  JBV1TokenPaymentTerminal migrationTerminal;
 
   event TestDecimals(uint256);
 
   function run() external {
     vm.startBroadcast();
 
-    migrationTerminal = new JBV1TokenTerminal(_operatorStore, _projects, _directory, _ticketBooth);
+    migrationTerminal = new JBV1TokenPaymentTerminal(
+      _operatorStore,
+      _projects,
+      _directory,
+      _ticketBooth
+    );
 
     emit TestDecimals(migrationTerminal.decimalsForToken(address(69)));
   }

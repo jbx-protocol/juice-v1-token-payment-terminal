@@ -6,11 +6,11 @@ import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBRedemptionTerminal.so
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBController.sol';
 import '@jbx-protocol/contracts-v2/contracts/abstract/JBOperatable.sol';
 import '@jbx-protocol/contracts-v2/contracts/libraries/JBOperations.sol';
-import '../../interfaces/IJBV1TokenTerminal.sol';
-import '../../JBV1TokenTerminal.sol';
+import '../../interfaces/IJBV1TokenPaymentTerminal.sol';
+import '../../JBV1TokenPaymentTerminal.sol';
 import 'forge-std/Test.sol';
 
-contract TestUnitJBV1TokenTerminal is Test {
+contract TestUnitJBV1TokenPaymentTerminal is Test {
   event SetV1ProjectId(uint256 indexed _projectId, uint256 indexed _v1ProjectId, address caller);
 
   event Pay(
@@ -45,7 +45,7 @@ contract TestUnitJBV1TokenTerminal is Test {
   uint256 projectId = 420;
   uint256 projectIdV1 = 69;
 
-  JBV1TokenTerminal migrationTerminal;
+  JBV1TokenPaymentTerminal migrationTerminal;
 
   function setUp() public {
     mockOperatorStore = IJBOperatorStore(address(10));
@@ -78,7 +78,7 @@ contract TestUnitJBV1TokenTerminal is Test {
     vm.label(caller, 'caller');
     vm.label(beneficiary, 'beneficiary');
 
-    migrationTerminal = new JBV1TokenTerminal(
+    migrationTerminal = new JBV1TokenPaymentTerminal(
       mockOperatorStore,
       mockProjects,
       mockDirectory,

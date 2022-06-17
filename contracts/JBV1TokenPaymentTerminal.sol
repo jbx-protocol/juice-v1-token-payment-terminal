@@ -8,11 +8,11 @@ import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBRedemptionTerminal.so
 import '@jbx-protocol/contracts-v2/contracts/libraries/JBOperations.sol';
 import '@openzeppelin/contracts/security/ReentrancyGuard.sol';
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
-import './interfaces/IJBV1TokenTerminal.sol';
+import './interfaces/IJBV1TokenPaymentTerminal.sol';
 
 /** 
   @title 
-  JBV1TokenTerminal
+  JBV1TokenPaymentTerminal
 
   @notice 
   Allows project owners to specify the v1 project token that they are willing to accept from holders in exchange for their v2 project token. 
@@ -28,14 +28,14 @@ import './interfaces/IJBV1TokenTerminal.sol';
 
   @dev
   Adheres to -
-  IJBV1TokenTerminal: General interface for the methods in this contract that interact with the blockchain's state according to the protocol's rules.
+  IJBV1TokenPaymentTerminal: General interface for the methods in this contract that interact with the blockchain's state according to the protocol's rules.
   IJBPaymentTerminal: Standardized interface for project to receive payments.
 
   @dev
   Inherits from -
   JBOperatable: Several functions in this contract can only be accessed by a project owner, or an address that has been preconfifigured to be an operator of the project.
 */
-contract JBV1TokenTerminal is IJBV1TokenTerminal, IJBPaymentTerminal, JBOperatable {
+contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTerminal, JBOperatable {
   //*********************************************************************//
   // --------------------------- custom errors ------------------------- //
   //*********************************************************************//
@@ -160,7 +160,7 @@ contract JBV1TokenTerminal is IJBV1TokenTerminal, IJBPaymentTerminal, JBOperatab
   function supportsInterface(bytes4 _interfaceId) external pure override returns (bool) {
     return
       _interfaceId == type(IJBPaymentTerminal).interfaceId ||
-      _interfaceId == type(IJBV1TokenTerminal).interfaceId;
+      _interfaceId == type(IJBV1TokenPaymentTerminal).interfaceId;
   }
 
   //*********************************************************************//
