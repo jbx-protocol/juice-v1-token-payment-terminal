@@ -8,7 +8,7 @@ out
 
 # Keep related abi
 out/*
-!out/JBV1TokenTerminal.sol/*
+!out/JBV1TokenPaymentTerminal.sol/*
 
 # Keep the latest deployment only
 broadcast/*/*
