@@ -6,11 +6,31 @@ import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBRedemptionTerminal.so
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBController.sol';
 import '@jbx-protocol/contracts-v2/contracts/abstract/JBOperatable.sol';
 import '@jbx-protocol/contracts-v2/contracts/libraries/JBOperations.sol';
-import '../../interfaces/IJBV1V2MigrationTerminal.sol';
-import '../../JBV1V2MigrationTerminal.sol';
+import '../../interfaces/IJBV1TokenTerminal.sol';
+import '../../JBV1TokenTerminal.sol';
 import 'forge-std/Test.sol';
 
-contract TestUnitJBV1V2MigrationTerminal is Test {
+contract TestUnitJBV1TokenTerminal is Test {
+  event SetV1ProjectId(uint256 indexed _projectId, uint256 indexed _v1ProjectId, address caller);
+
+  event Pay(
+    uint256 indexed projectId,
+    address payer,
+    address beneficiary,
+    uint256 amount,
+    uint256 beneficiaryTokenCount,
+    string memo,
+    address caller
+  );
+
+  event ReleaseV1Token(
+    uint256 indexed projectId,
+    address indexed beneficiary,
+    uint256 unclaimedBalance,
+    uint256 claimedBalance,
+    address projectOwner
+  );
+
   IJBOperatorStore mockOperatorStore;
   IJBProjects mockProjects;
   IJBDirectory mockDirectory;
@@ -21,10 +41,11 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
 
   address projectOwner;
   address caller;
+  address beneficiary;
   uint256 projectId = 420;
   uint256 projectIdV1 = 69;
 
-  JBV1V2MigrationTerminal migrationTerminal;
+  JBV1TokenTerminal migrationTerminal;
 
   function setUp() public {
     mockOperatorStore = IJBOperatorStore(address(10));
@@ -36,6 +57,7 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
     mockProjectsV1 = IProjects(address(70));
     projectOwner = address(69);
     caller = address(420);
+    beneficiary = address(6942069);
 
     vm.etch(address(mockOperatorStore), new bytes(0x69));
     vm.etch(address(mockProjects), new bytes(0x69));
@@ -54,8 +76,9 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
     vm.label(address(mockController), 'mockController');
     vm.label(projectOwner, 'projectOwner');
     vm.label(caller, 'caller');
+    vm.label(beneficiary, 'beneficiary');
 
-    migrationTerminal = new JBV1V2MigrationTerminal(
+    migrationTerminal = new JBV1TokenTerminal(
       mockOperatorStore,
       mockProjects,
       mockDirectory,
@@ -83,6 +106,9 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
       abi.encodeWithSelector(IERC721.ownerOf.selector, _projectIdV1),
       abi.encode(projectOwner)
     );
+
+    vm.expectEmit(true, true, false, true);
+    emit SetV1ProjectId(_projectId, _projectIdV1, projectOwner);
 
     vm.prank(projectOwner);
     migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
@@ -146,10 +172,20 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
 
   // --------------- pay(..) ---------------------
 
-  function testPay_passIfTokenHolder() public {
-    uint256 _unclaimedBalance = 5 ether;
-    uint256 _claimedBalance = 5 ether;
-    uint256 _amount = _unclaimedBalance + _claimedBalance;
+  function testPay_passIfTokenHolder(uint96 _unclaimedBalance, uint96 _claimedBalance) public {
+    uint256 _amount = uint256(_unclaimedBalance) + uint256(_claimedBalance);
+    vm.assume(_amount != 0);
+
+    // Mock the migration terminal as one of the V2 project terminals
+    vm.mockCall(
+      address(mockDirectory),
+      abi.encodeWithSelector(
+        IJBDirectory.isTerminalOf.selector,
+        projectId,
+        address(migrationTerminal)
+      ),
+      abi.encode(true)
+    );
 
     // Set the V1-V2 Id's
     vm.mockCall(
@@ -188,10 +224,15 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
       abi.encode(_claimedBalance)
     );
 
-    // Mock the transferFrom of V1 token, between caller and project owner
+    // Mock the transferFrom of V1 token, between caller and the terminal contract
     vm.mockCall(
       address(mockV1JBToken),
-      abi.encodeWithSelector(IERC20.transferFrom.selector, caller, projectOwner, _claimedBalance), // projectOwner is mocked supra
+      abi.encodeWithSelector(
+        IERC20.transferFrom.selector,
+        caller,
+        address(migrationTerminal),
+        _claimedBalance
+      ), // projectOwner is mocked supra
       abi.encode(true)
     );
 
@@ -203,7 +244,7 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
         caller,
         projectIdV1,
         _unclaimedBalance,
-        projectOwner
+        address(migrationTerminal)
       ), // projectOwner is mocked supra
       abi.encode(true)
     );
@@ -221,7 +262,7 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
         IJBController.mintTokensOf.selector,
         projectId,
         _amount,
-        caller,
+        beneficiary,
         '',
         /*preferClaimed*/
         false,
@@ -230,6 +271,9 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
       abi.encode(_amount)
     );
 
+    vm.expectEmit(true, false, false, true);
+    emit Pay(projectId, caller, beneficiary, _amount, _amount, '', caller);
+
     vm.prank(caller);
     migrationTerminal.pay(
       projectId,
@@ -237,7 +281,7 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
       /*token*/
       address(0),
       /*beneficiary*/
-      caller,
+      beneficiary,
       /*minReturnedToken*/
       1,
       /*preferClaimed*/
@@ -251,6 +295,17 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
 
   function testPay_revertIfMsgValue(uint96 _value) public {
     vm.assume(_value > 0);
+
+    // Mock the migration terminal as one of the V2 project terminals
+    vm.mockCall(
+      address(mockDirectory),
+      abi.encodeWithSelector(
+        IJBDirectory.isTerminalOf.selector,
+        projectId,
+        address(migrationTerminal)
+      ),
+      abi.encode(true)
+    );
 
     vm.expectRevert(abi.encodeWithSignature('NO_MSG_VALUE_ALLOWED()'));
     migrationTerminal.pay{value: _value}(
@@ -273,6 +328,17 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
   }
 
   function testPay_revertIfAmount0() public {
+    // Mock the migration terminal as one of the V2 project terminals
+    vm.mockCall(
+      address(mockDirectory),
+      abi.encodeWithSelector(
+        IJBDirectory.isTerminalOf.selector,
+        projectId,
+        address(migrationTerminal)
+      ),
+      abi.encode(true)
+    );
+
     vm.expectRevert(abi.encodeWithSignature('INVALID_AMOUNT()'));
     migrationTerminal.pay(
       projectId,
@@ -298,6 +364,17 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
     uint256 _claimedBalance = 5 ether;
     uint256 _amount = _unclaimedBalance + _claimedBalance;
 
+    // Mock the migration terminal as one of the V2 project terminals
+    vm.mockCall(
+      address(mockDirectory),
+      abi.encodeWithSelector(
+        IJBDirectory.isTerminalOf.selector,
+        projectId,
+        address(migrationTerminal)
+      ),
+      abi.encode(true)
+    );
+
     vm.prank(caller);
     vm.expectRevert(abi.encodeWithSignature('V1_PROJECT_NOT_SET()'));
     migrationTerminal.pay(
@@ -322,6 +399,17 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
     uint256 _unclaimedBalance = 5 ether;
     uint256 _claimedBalance = 5 ether;
     uint256 _amount = _unclaimedBalance + _claimedBalance;
+
+    // Mock the migration terminal as one of the V2 project terminals
+    vm.mockCall(
+      address(mockDirectory),
+      abi.encodeWithSelector(
+        IJBDirectory.isTerminalOf.selector,
+        projectId,
+        address(migrationTerminal)
+      ),
+      abi.encode(true)
+    );
 
     // Set the V1-V2 Id's
     vm.mockCall(
@@ -385,6 +473,17 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
     uint256 _claimedBalance = 5 ether;
     uint256 _amount = _unclaimedBalance + _claimedBalance;
 
+    // Mock the migration terminal as one of the V2 project terminals
+    vm.mockCall(
+      address(mockDirectory),
+      abi.encodeWithSelector(
+        IJBDirectory.isTerminalOf.selector,
+        projectId,
+        address(migrationTerminal)
+      ),
+      abi.encode(true)
+    );
+
     // Set the V1-V2 Id's
     vm.mockCall(
       address(mockProjects),
@@ -425,7 +524,12 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
     // Mock the transferFrom of V1 token, between caller and project owner
     vm.mockCall(
       address(mockV1JBToken),
-      abi.encodeWithSelector(IERC20.transferFrom.selector, caller, projectOwner, _claimedBalance), // projectOwner is mocked supra
+      abi.encodeWithSelector(
+        IERC20.transferFrom.selector,
+        caller,
+        address(migrationTerminal),
+        _claimedBalance
+      ), // projectOwner is mocked supra
       abi.encode(true)
     );
 
@@ -437,7 +541,7 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
         caller,
         projectIdV1,
         _unclaimedBalance,
-        projectOwner
+        address(migrationTerminal)
       ), // projectOwner is mocked supra
       abi.encode(true)
     );
@@ -493,5 +597,154 @@ contract TestUnitJBV1V2MigrationTerminal is Test {
   ) public {
     vm.expectRevert(abi.encodeWithSignature('NOT_SUPPORTED()'));
     migrationTerminal.addToBalanceOf(_projectId, _amount, _token, '', '0x');
+  }
+
+  // ----------- releaseV1Token(..) -----------------
+  function testReleaseV1Token_PassIfCallerIsV1Owner(
+    address _v1ProjectOwner,
+    address _beneficiary,
+    uint256 _claimedBalance,
+    uint256 _unclaimedBalance
+  ) public {
+    // Mock the call to retrieve the v1 project owner
+    vm.mockCall(
+      address(mockProjectsV1),
+      abi.encodeWithSelector(IERC721.ownerOf.selector, projectIdV1),
+      abi.encode(_v1ProjectOwner)
+    );
+
+    // Mock the call to retrieve the correspoding V1 ERC20
+    vm.mockCall(
+      address(mockTicketBooth),
+      abi.encodeWithSelector(ITicketBooth.ticketsOf.selector, projectIdV1),
+      abi.encode(mockV1JBToken)
+    );
+
+    // Mock the call to get the migration terminal unclaimed balance
+    vm.mockCall(
+      address(mockTicketBooth),
+      abi.encodeWithSelector(ITicketBooth.stakedBalanceOf.selector, address(migrationTerminal)),
+      abi.encode(_unclaimedBalance)
+    );
+
+    // Mock the call to get the migration terminal ERC20 balance
+    vm.mockCall(
+      address(mockV1JBToken),
+      abi.encodeWithSelector(IERC20.balanceOf.selector, address(migrationTerminal)),
+      abi.encode(_claimedBalance)
+    );
+
+    // Mock the call to the ERC20 transfer
+    vm.mockCall(
+      address(mockV1JBToken),
+      abi.encodeWithSelector(IERC20.transfer.selector, _beneficiary, _claimedBalance),
+      abi.encode(true)
+    );
+
+    // Mock the call to the unclaimed transfer
+    vm.mockCall(
+      address(mockTicketBooth),
+      abi.encodeWithSelector(
+        ITicketBooth.transfer.selector,
+        address(migrationTerminal),
+        projectIdV1,
+        _unclaimedBalance,
+        _beneficiary
+      ),
+      abi.encode(true)
+    );
+
+    vm.expectEmit(true, true, false, true);
+    emit ReleaseV1Token(
+      projectIdV1,
+      _beneficiary,
+      _unclaimedBalance,
+      _claimedBalance,
+      _v1ProjectOwner
+    );
+
+    vm.prank(_v1ProjectOwner);
+    migrationTerminal.releaseV1Token(projectIdV1, _beneficiary);
+  }
+
+  function testReleaseV1Token_RevertIfCallerIsNotV1Owner(
+    address _v1ProjectOwner,
+    address _caller,
+    address _beneficiary
+  ) public {
+    vm.assume(_v1ProjectOwner != _caller);
+
+    // Mock the call to retrieve the v1 project owner
+    vm.mockCall(
+      address(mockProjectsV1),
+      abi.encodeWithSelector(IERC721.ownerOf.selector, projectIdV1),
+      abi.encode(_v1ProjectOwner)
+    );
+
+    vm.prank(_caller);
+    vm.expectRevert(abi.encodeWithSignature('NOT_ALLOWED()'));
+    migrationTerminal.releaseV1Token(projectIdV1, _beneficiary);
+  }
+
+  function testReleaseV1Token_RevertIfCalledASecondTime(
+    address _v1ProjectOwner,
+    address _beneficiary,
+    uint256 _claimedBalance,
+    uint256 _unclaimedBalance
+  ) public {
+    // Mock the call to retrieve the v1 project owner
+    vm.mockCall(
+      address(mockProjectsV1),
+      abi.encodeWithSelector(IERC721.ownerOf.selector, projectIdV1),
+      abi.encode(_v1ProjectOwner)
+    );
+
+    // Mock the call to retrieve the correspoding V1 ERC20
+    vm.mockCall(
+      address(mockTicketBooth),
+      abi.encodeWithSelector(ITicketBooth.ticketsOf.selector, projectIdV1),
+      abi.encode(mockV1JBToken)
+    );
+
+    // Mock the call to get the migration terminal unclaimed balance
+    vm.mockCall(
+      address(mockTicketBooth),
+      abi.encodeWithSelector(ITicketBooth.stakedBalanceOf.selector, address(migrationTerminal)),
+      abi.encode(_claimedBalance)
+    );
+
+    // Mock the call to get the migration terminal ERC20 balance
+    vm.mockCall(
+      address(mockV1JBToken),
+      abi.encodeWithSelector(IERC20.balanceOf.selector, address(migrationTerminal)),
+      abi.encode(_unclaimedBalance)
+    );
+
+    // Mock the call to the ERC20 transfer
+    vm.mockCall(
+      address(mockV1JBToken),
+      abi.encodeWithSelector(IERC20.transfer.selector, _beneficiary, _unclaimedBalance),
+      abi.encode(true)
+    );
+
+    // Mock the call to the unclaimed transfer
+    vm.mockCall(
+      address(mockTicketBooth),
+      abi.encodeWithSelector(
+        ITicketBooth.transfer.selector,
+        address(migrationTerminal),
+        projectIdV1,
+        _unclaimedBalance,
+        _beneficiary
+      ),
+      abi.encode(true)
+    );
+
+    vm.prank(_v1ProjectOwner);
+    migrationTerminal.releaseV1Token(projectIdV1, _beneficiary);
+
+    vm.prank(_v1ProjectOwner);
+    vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
+    migrationTerminal.releaseV1Token(projectIdV1, _beneficiary);
   }
 }

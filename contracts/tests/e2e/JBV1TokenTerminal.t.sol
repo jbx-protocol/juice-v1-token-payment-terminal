@@ -1,24 +1,43 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.6;
 
-import '../../interfaces/IJBV1V2MigrationTerminal.sol';
-import '../../JBV1V2MigrationTerminal.sol';
+import '../../interfaces/IJBV1TokenTerminal.sol';
+import '../../JBV1TokenTerminal.sol';
 
 import './helpers/TestBaseWorkflow.sol';
 
-contract TestE2EJBV1V2MigrationTerminal is TestBaseWorkflow {
-  JBV1V2MigrationTerminal migrationTerminal;
+contract TestE2EJBV1TokenTerminal is TestBaseWorkflow {
+  JBV1TokenTerminal migrationTerminal;
 
   function setUp() public override {
     super.setUp();
 
     // Create new migration terminal
-    migrationTerminal = new JBV1V2MigrationTerminal(
+    migrationTerminal = new JBV1TokenTerminal(
       _jbOperatorStore,
       _jbProjects,
       _jbDirectory,
       _ticketBoothV1
     );
+
+    // Add it as a project terminal
+    _terminals.push(migrationTerminal);
+
+    _projectId = _jbController.launchProjectFor(
+      _projectOwner,
+      _projectMetadata,
+      _data,
+      _metadata,
+      block.timestamp,
+      _groupedSplits,
+      _fundAccessConstraints,
+      _terminals,
+      ''
+    );
+
+    // Deploy an ERC20 for this project, to test both issued and unissued token migration
+    vm.prank(_projectOwner);
+    _tokenV2 = _jbController.issueTokenFor(_projectId, 'TokenV2', 'LfG');
   }
 
   /**
@@ -91,10 +110,13 @@ contract TestE2EJBV1V2MigrationTerminal is TestBaseWorkflow {
     assertEq(_ticketBoothV1.stakedBalanceOf(_beneficiary, _projectIdV1), 0);
     assertEq(_ticketsV1.balanceOf(_beneficiary), 0);
 
-    // V1 token are now with project owner
-    assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
-    assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1);
-    assertEq(_ticketsV1.balanceOf(_projectOwner), 0);
+    // V1 token are now in the migration terminal
+    assertEq(_ticketBoothV1.balanceOf(address(migrationTerminal), _projectIdV1), totalBalanceV1);
+    assertEq(
+      _ticketBoothV1.stakedBalanceOf(address(migrationTerminal), _projectIdV1),
+      unclaimedBalanceV1
+    );
+    assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), 0);
   }
 
   /**
@@ -167,10 +189,13 @@ contract TestE2EJBV1V2MigrationTerminal is TestBaseWorkflow {
     assertEq(_ticketBoothV1.stakedBalanceOf(_beneficiary, _projectIdV1), 0);
     assertEq(_ticketsV1.balanceOf(_beneficiary), 0);
 
-    // V1 token are now with project owner
-    assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
-    assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1);
-    assertEq(_ticketsV1.balanceOf(_projectOwner), claimedBalanceV1);
+    // V1 token are now in the terminal
+    assertEq(_ticketBoothV1.balanceOf(address(migrationTerminal), _projectIdV1), totalBalanceV1);
+    assertEq(
+      _ticketBoothV1.stakedBalanceOf(address(migrationTerminal), _projectIdV1),
+      unclaimedBalanceV1
+    );
+    assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), claimedBalanceV1);
   }
 
   /**
@@ -271,10 +296,13 @@ contract TestE2EJBV1V2MigrationTerminal is TestBaseWorkflow {
     assertEq(_ticketBoothV1.stakedBalanceOf(_beneficiary, _projectIdV1), 0);
     assertEq(_ticketsV1.balanceOf(_beneficiary), 0);
 
-    // V1 token are now with project owner
-    assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
-    assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1);
-    assertEq(_ticketsV1.balanceOf(_projectOwner), claimedBalanceV1);
+    // V1 token are now in the migration terminal
+    assertEq(_ticketBoothV1.balanceOf(address(migrationTerminal), _projectIdV1), totalBalanceV1);
+    assertEq(
+      _ticketBoothV1.stakedBalanceOf(address(migrationTerminal), _projectIdV1),
+      unclaimedBalanceV1
+    );
+    assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), claimedBalanceV1);
   }
 
   /**
@@ -380,10 +408,13 @@ contract TestE2EJBV1V2MigrationTerminal is TestBaseWorkflow {
     assertEq(_ticketBoothV1.stakedBalanceOf(_beneficiary, _projectIdV1), 0);
     assertEq(_ticketsV1.balanceOf(_beneficiary), 0);
 
-    // V1 token are now with project owner
-    assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
-    assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1);
-    assertEq(_ticketsV1.balanceOf(_projectOwner), claimedBalanceV1);
+    // V1 token are now in the migration terminal
+    assertEq(_ticketBoothV1.balanceOf(address(migrationTerminal), _projectIdV1), totalBalanceV1);
+    assertEq(
+      _ticketBoothV1.stakedBalanceOf(address(migrationTerminal), _projectIdV1),
+      unclaimedBalanceV1
+    );
+    assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), claimedBalanceV1);
   }
 
   /**
@@ -456,10 +487,16 @@ contract TestE2EJBV1V2MigrationTerminal is TestBaseWorkflow {
     assertEq(_ticketBoothV1.stakedBalanceOf(_beneficiary, _projectIdV1), unclaimedBalanceV1 / 2);
     assertEq(_ticketsV1.balanceOf(_beneficiary), 0);
 
-    // V1 project owner token
-    assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1 / 2);
-    assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1 / 2);
-    assertEq(_ticketsV1.balanceOf(_projectOwner), 0);
+    // V1 project token in migration terminal
+    assertEq(
+      _ticketBoothV1.balanceOf(address(migrationTerminal), _projectIdV1),
+      totalBalanceV1 / 2
+    );
+    assertEq(
+      _ticketBoothV1.stakedBalanceOf(address(migrationTerminal), _projectIdV1),
+      unclaimedBalanceV1 / 2
+    );
+    assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), 0);
   }
 
   /**

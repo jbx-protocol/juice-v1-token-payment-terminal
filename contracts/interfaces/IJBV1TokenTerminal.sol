@@ -2,10 +2,10 @@
 pragma solidity 0.8.6;
 
 import '@jbox/sol/contracts/TicketBooth.sol';
-import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBProjects.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBDirectory.sol';
+import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBProjects.sol';
 
-interface IJBV1V2MigrationTerminal {
+interface IJBV1TokenTerminal {
   event SetV1ProjectId(uint256 indexed _projectId, uint256 indexed _v1ProjectId, address caller);
 
   event Pay(
@@ -20,6 +20,7 @@ interface IJBV1V2MigrationTerminal {
 
   event ReleaseV1Token(
     uint256 indexed projectId,
+    address indexed beneficiary,
     uint256 unclaimedBalance,
     uint256 claimedBalance,
     address projectOwner
@@ -37,5 +38,5 @@ interface IJBV1V2MigrationTerminal {
 
   function setV1ProjectId(uint256 _projectId, uint256 _v1ProjectId) external;
 
-  function releaseV1Token(uint256 _projectId) external;
+  function releaseV1Token(uint256 _projectId, address _beneficiary) external;
 }

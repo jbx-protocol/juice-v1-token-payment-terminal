@@ -2,11 +2,10 @@
 *
 
 # Allowlisted deployment networks.
-!/deployments/rinkeby/**
-!/deployments/mainnet/**
+!/broadcast/**
+!/out/**
 
 # Allow everything in /contracts ...
 !/contracts/**
-# ... except tests
-/contracts/test/**
-/contracts/system_tests/**
+
+/foundry.toml
