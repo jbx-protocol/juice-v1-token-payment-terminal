@@ -588,6 +588,40 @@ contract TestUnitJBV1TokenTerminal is Test {
     );
   }
 
+  function testPay_revertIfNotAProjectTerminal() public {
+    uint256 _amount = 1 ether;
+
+    // Mock the migration terminal as not a terminal of the V2 project
+    vm.mockCall(
+      address(mockDirectory),
+      abi.encodeWithSelector(
+        IJBDirectory.isTerminalOf.selector,
+        projectId,
+        address(migrationTerminal)
+      ),
+      abi.encode(false)
+    );
+
+    vm.expectRevert(abi.encodeWithSignature('PROJECT_TERMINAL_MISMATCH()'));
+    vm.prank(caller);
+    migrationTerminal.pay(
+      projectId,
+      _amount,
+      /*token*/
+      address(0),
+      /*beneficiary*/
+      beneficiary,
+      /*minReturnedToken*/
+      1,
+      /*preferClaimed*/
+      false,
+      /*memo*/
+      '',
+      /*metadata*/
+      new bytes(0x69)
+    );
+  }
+
   // ----------- addToBalance(..) -----------------
 
   function testAddToBalance_Reverts(
