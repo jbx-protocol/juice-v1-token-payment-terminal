@@ -274,6 +274,7 @@ contract TestBaseWorkflow is Test {
       dataSource: address(0)
     });
 
+    // Launch a first one, to have different project Id V1-V2
     _jbController.launchProjectFor(
       _projectOwner,
       _projectMetadata,
@@ -285,22 +286,6 @@ contract TestBaseWorkflow is Test {
       _terminals,
       ''
     );
-
-    // Launch a second one, to have different project Id V1-V2
-    _projectId = _jbController.launchProjectFor(
-      _projectOwner,
-      _projectMetadata,
-      _data,
-      _metadata,
-      block.timestamp,
-      _groupedSplits,
-      _fundAccessConstraints,
-      _terminals,
-      ''
-    );
-
-    vm.prank(_projectOwner);
-    _tokenV2 = _jbController.issueTokenFor(_projectId, 'TokenV2', 'LfG');
 
     // ---- general setup ----
     vm.deal(_beneficiary, 100 ether);
