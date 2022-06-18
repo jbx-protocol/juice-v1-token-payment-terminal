@@ -23,12 +23,12 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     address caller
   );
 
-  event ReleaseV1Token(
+  event ReleaseV1TokensOf(
     uint256 indexed projectId,
     address indexed beneficiary,
     uint256 unclaimedBalance,
     uint256 claimedBalance,
-    address projectOwner
+    address caller
   );
 
   IJBOperatorStore mockOperatorStore;
@@ -633,7 +633,7 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     migrationTerminal.addToBalanceOf(_projectId, _amount, _token, '', '0x');
   }
 
-  // ----------- releaseV1Token(..) -----------------
+  // ----------- releaseV1TokensOf(..) -----------------
   function testReleaseV1Token_PassIfCallerIsV1Owner(
     address _v1ProjectOwner,
     address _beneficiary,
@@ -689,7 +689,7 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     );
 
     vm.expectEmit(true, true, false, true);
-    emit ReleaseV1Token(
+    emit ReleaseV1TokensOf(
       projectIdV1,
       _beneficiary,
       _unclaimedBalance,
@@ -698,7 +698,7 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     );
 
     vm.prank(_v1ProjectOwner);
-    migrationTerminal.releaseV1Token(projectIdV1, _beneficiary);
+    migrationTerminal.releaseV1TokensOf(projectIdV1, _beneficiary);
   }
 
   function testReleaseV1Token_RevertIfCallerIsNotV1Owner(
@@ -717,7 +717,7 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
 
     vm.prank(_caller);
     vm.expectRevert(abi.encodeWithSignature('NOT_ALLOWED()'));
-    migrationTerminal.releaseV1Token(projectIdV1, _beneficiary);
+    migrationTerminal.releaseV1TokensOf(projectIdV1, _beneficiary);
   }
 
   function testReleaseV1Token_RevertIfCalledASecondTime(
@@ -775,10 +775,10 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     );
 
     vm.prank(_v1ProjectOwner);
-    migrationTerminal.releaseV1Token(projectIdV1, _beneficiary);
+    migrationTerminal.releaseV1TokensOf(projectIdV1, _beneficiary);
 
     vm.prank(_v1ProjectOwner);
     vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
-    migrationTerminal.releaseV1Token(projectIdV1, _beneficiary);
+    migrationTerminal.releaseV1TokensOf(projectIdV1, _beneficiary);
   }
 }

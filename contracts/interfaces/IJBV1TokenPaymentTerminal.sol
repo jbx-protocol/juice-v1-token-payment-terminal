@@ -18,12 +18,12 @@ interface IJBV1TokenPaymentTerminal {
     address caller
   );
 
-  event ReleaseV1Token(
+  event ReleaseV1TokensOf(
     uint256 indexed projectId,
     address indexed beneficiary,
     uint256 unclaimedBalance,
     uint256 claimedBalance,
-    address projectOwner
+    address caller
   );
 
   function ticketBooth() external view returns (ITicketBooth);
@@ -38,5 +38,5 @@ interface IJBV1TokenPaymentTerminal {
 
   function setV1ProjectId(uint256 _projectId, uint256 _v1ProjectId) external;
 
-  function releaseV1Token(uint256 _projectId, address _beneficiary) external;
+  function releaseV1TokensOf(uint256 _projectId, address _beneficiary) external;
 }

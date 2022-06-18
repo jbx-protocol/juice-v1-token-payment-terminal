@@ -119,7 +119,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
     assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), 0);
 
     vm.prank(_projectOwner);
-    migrationTerminal.releaseV1Token(_projectIdV1, _projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
 
     // V1 token are now with the project owner...
     assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
@@ -134,7 +134,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
     // No further migration is possible
     vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
     vm.prank(_projectOwner);
-    migrationTerminal.releaseV1Token(_projectIdV1, _projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
   }
 
   /**
@@ -216,7 +216,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
     assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), claimedBalanceV1);
 
     vm.prank(_projectOwner);
-    migrationTerminal.releaseV1Token(_projectIdV1, _projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
 
     // V1 token are now with the project owner...
     assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
@@ -231,7 +231,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
     // No further migration is possible
     vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
     vm.prank(_projectOwner);
-    migrationTerminal.releaseV1Token(_projectIdV1, _projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
   }
 
   /**
@@ -342,7 +342,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
 
     // Release with the project owner as beneficiary of v1 token
     vm.prank(_projectOwner);
-    migrationTerminal.releaseV1Token(_projectIdV1, _projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
 
     // V1 token are now with the project owner...
     assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
@@ -357,7 +357,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
     // No further migration is possible
     vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
     vm.prank(_projectOwner);
-    migrationTerminal.releaseV1Token(_projectIdV1, _projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
   }
 
   /**
@@ -473,7 +473,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
 
     // Release with the project owner as beneficiary of v1 token
     vm.prank(_projectOwner);
-    migrationTerminal.releaseV1Token(_projectIdV1, _projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
 
     // V1 token are now with the project owner...
     assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
@@ -488,7 +488,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
     // No further migration is possible
     vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
     vm.prank(_projectOwner);
-    migrationTerminal.releaseV1Token(_projectIdV1, _projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
   }
 
   /**
@@ -574,7 +574,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
 
     // Release with the project owner as beneficiary of v1 token
     vm.prank(_projectOwner);
-    migrationTerminal.releaseV1Token(_projectIdV1, _projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
 
     // V1 token are now with the project owner...
     assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1 / 2);
@@ -589,7 +589,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
     // No further migration is possible
     vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
     vm.prank(_projectOwner);
-    migrationTerminal.releaseV1Token(_projectIdV1, _projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
   }
 
   /**
