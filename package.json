@@ -10,9 +10,6 @@
   "version": "1.0.0",
   "license": "MIT",
   "devDependencies": {
-    "@jbx-protocol/contracts-v2": "^4.0.0",
-    "@jbox/sol": "^1.0.1",
-    "@openzeppelin/contracts": "^4.5.0-rc.0",
     "prettier": "^2.4.0",
     "prettier-plugin-solidity": "^1.0.0-beta.19",
     "solhint": "^3.3.6",

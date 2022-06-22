@@ -3,4 +3,5 @@ broadcast
 cache
 out
 deployments
-
+lib
+contracts/tests/e2e/helpers
