@@ -1,4 +1,4 @@
-# Juicebox v1 Token Terminal 
+# Juicebox v1 Token Terminal
 
 Allows project owners to specify the v1 project token that they are willing to accept from holders in exchange for their v2 project token.
 
@@ -23,6 +23,8 @@ then run
 ```bash
 forge update
 ```
+
+If git modules are failing to clone, not installing, etc (ie overall submodule misbehaving), use `git submodule update --init --recursive --force`
 
 3. Run tests:
 
