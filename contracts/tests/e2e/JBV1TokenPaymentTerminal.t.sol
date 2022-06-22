@@ -117,6 +117,24 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
       unclaimedBalanceV1
     );
     assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), 0);
+
+    vm.prank(_projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
+
+    // V1 token are now with the project owner...
+    assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
+    assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1);
+    assertEq(_ticketsV1.balanceOf(_projectOwner), 0);
+
+    // ... And not in the terminal anymore
+    assertEq(_ticketBoothV1.balanceOf(address(migrationTerminal), _projectIdV1), 0);
+    assertEq(_ticketBoothV1.stakedBalanceOf(address(migrationTerminal), _projectIdV1), 0);
+    assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), 0);
+
+    // No further migration is possible
+    vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
+    vm.prank(_projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
   }
 
   /**
@@ -196,6 +214,24 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
       unclaimedBalanceV1
     );
     assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), claimedBalanceV1);
+
+    vm.prank(_projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
+
+    // V1 token are now with the project owner...
+    assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
+    assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1);
+    assertEq(_ticketsV1.balanceOf(_projectOwner), claimedBalanceV1);
+
+    // ... And not in the terminal anymore
+    assertEq(_ticketBoothV1.balanceOf(address(migrationTerminal), _projectIdV1), 0);
+    assertEq(_ticketBoothV1.stakedBalanceOf(address(migrationTerminal), _projectIdV1), 0);
+    assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), 0);
+
+    // No further migration is possible
+    vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
+    vm.prank(_projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
   }
 
   /**
@@ -303,6 +339,25 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
       unclaimedBalanceV1
     );
     assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), claimedBalanceV1);
+
+    // Release with the project owner as beneficiary of v1 token
+    vm.prank(_projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
+
+    // V1 token are now with the project owner...
+    assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
+    assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1);
+    assertEq(_ticketsV1.balanceOf(_projectOwner), claimedBalanceV1);
+
+    // ... And not in the terminal anymore
+    assertEq(_ticketBoothV1.balanceOf(address(migrationTerminal), _projectIdV1), 0);
+    assertEq(_ticketBoothV1.stakedBalanceOf(address(migrationTerminal), _projectIdV1), 0);
+    assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), 0);
+
+    // No further migration is possible
+    vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
+    vm.prank(_projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
   }
 
   /**
@@ -415,6 +470,25 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
       unclaimedBalanceV1
     );
     assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), claimedBalanceV1);
+
+    // Release with the project owner as beneficiary of v1 token
+    vm.prank(_projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
+
+    // V1 token are now with the project owner...
+    assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1);
+    assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1);
+    assertEq(_ticketsV1.balanceOf(_projectOwner), claimedBalanceV1);
+
+    // ... And not in the terminal anymore
+    assertEq(_ticketBoothV1.balanceOf(address(migrationTerminal), _projectIdV1), 0);
+    assertEq(_ticketBoothV1.stakedBalanceOf(address(migrationTerminal), _projectIdV1), 0);
+    assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), 0);
+
+    // No further migration is possible
+    vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
+    vm.prank(_projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
   }
 
   /**
@@ -497,6 +571,25 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
       unclaimedBalanceV1 / 2
     );
     assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), 0);
+
+    // Release with the project owner as beneficiary of v1 token
+    vm.prank(_projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
+
+    // V1 token are now with the project owner...
+    assertEq(_ticketBoothV1.balanceOf(_projectOwner, _projectIdV1), totalBalanceV1 / 2);
+    assertEq(_ticketBoothV1.stakedBalanceOf(_projectOwner, _projectIdV1), unclaimedBalanceV1 / 2);
+    assertEq(_ticketsV1.balanceOf(_projectOwner), 0);
+
+    // ... And not in the terminal anymore
+    assertEq(_ticketBoothV1.balanceOf(address(migrationTerminal), _projectIdV1), 0);
+    assertEq(_ticketBoothV1.stakedBalanceOf(address(migrationTerminal), _projectIdV1), 0);
+    assertEq(_ticketsV1.balanceOf(address(migrationTerminal)), 0);
+
+    // No further migration is possible
+    vm.expectRevert(abi.encodeWithSignature('MIGRATION_TERMINATED()'));
+    vm.prank(_projectOwner);
+    migrationTerminal.releaseV1TokensOf(_projectIdV1, _projectOwner);
   }
 
   /**

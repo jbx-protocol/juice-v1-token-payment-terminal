@@ -39,10 +39,9 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
   //*********************************************************************//
   // --------------------------- custom errors ------------------------- //
   //*********************************************************************//
-  error TERMINATED();
-  error NOT_TERMINATED();
   error INSUFFICIENT_FUNDS();
   error INVALID_AMOUNT();
+  error MIGRATION_TERMINATED();
   error NO_MSG_VALUE_ALLOWED();
   error NOT_ALLOWED();
   error NOT_SUPPORTED();
@@ -69,9 +68,9 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
 
   /**
     @notice
-    The V1 contract where tokens are stored.
+    Mints ERC-721's that represent project ownership and transfers.
   */
-  ITicketBooth public immutable override ticketBooth;
+  IJBProjects public immutable override projects;
 
   /**
     @notice
@@ -81,9 +80,9 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
 
   /**
     @notice
-    Mints ERC-721's that represent project ownership and transfers.
+    The V1 contract where token balances are stored.
   */
-  IJBProjects public immutable override projects;
+  ITicketBooth public immutable override ticketBooth;
 
   //*********************************************************************//
   // --------------------- public stored properties -------------------- //
@@ -93,7 +92,7 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     @notice 
     The v1 project ID for a v2 project.
 
-    _projectId The ID of the project to accept migrations for.
+    _projectId The ID of the v2 project to exchange tokens for. 
   */
   mapping(uint256 => uint256) public override v1ProjectIdOf;
 
@@ -118,7 +117,11 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     _token; // Prevents unused var compiler and natspec complaints.
     _projectId; // Prevents unused var compiler and natspec complaints.
 
-    return false;
+    // Get a reference to the V1 project for the provided project ID.
+    uint256 _v1ProjectId = v1ProjectIdOf[_projectId];
+
+    // Accept the token if it has been set and the exchange hasn't yet finalized.
+    return address(ticketBooth.ticketsOf(_v1ProjectId)) == _token && !finalized[_v1ProjectId];
   }
 
   /** 
@@ -151,6 +154,17 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     return 0;
   }
 
+  /**
+    @notice
+    Gets the current overflowed amount in this terminal for a specified project, in terms of ETH.
+
+    @dev
+    The current overflow is represented as a fixed point number with 18 decimals.
+
+    @param _projectId The ID of the project to get overflow for.
+
+    @return The current amount of ETH overflow that project has in this terminal, as a fixed point number with 18 decimals.
+  */
   function currentEthOverflowOf(uint256 _projectId) external pure override returns (uint256) {
     _projectId; // Prevents unused var compiler and natspec complaints.
 
@@ -158,10 +172,20 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     return 0;
   }
 
+  /**
+    @notice
+    Indicates if this contract adheres to the specified interface.
+
+    @dev 
+    See {IERC165-supportsInterface}.
+
+    @param _interfaceId The ID of the interface to check for adherance to.
+  */
   function supportsInterface(bytes4 _interfaceId) external pure override returns (bool) {
     return
       _interfaceId == type(IJBPaymentTerminal).interfaceId ||
-      _interfaceId == type(IJBV1TokenPaymentTerminal).interfaceId;
+      _interfaceId == type(IJBV1TokenPaymentTerminal).interfaceId ||
+      _interfaceId == type(IJBOperatable).interfaceId;
   }
 
   //*********************************************************************//
@@ -191,12 +215,12 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
 
   /** 
     @notice 
-    Allows a project owner to initialize the acceptance of a v1 project's tokens in exchange for it's v2 project token.
+    Allows a project owner to initialize the acceptance of a v1 project's tokens in exchange for its v2 project token.
 
     @dev
     Only a project owner can initiate token migration.
 
-    @param _projectId The ID of the project to a v2 project ID for.
+    @param _projectId The ID of the v2 project to set a v1 project ID for.
     @param _v1ProjectId The ID of the v1 project to set.
   */
   function setV1ProjectId(uint256 _projectId, uint256 _v1ProjectId) external override {
@@ -219,8 +243,8 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     @param _projectId The ID of the v2 project to pay towards.
     @param _amount The amount of v1 project tokens being paid, as a fixed point number with the same amount of decimals as this terminal.
     @param _token The token being paid. This terminal ignores this property since it only manages v1 tokens preset by the project being paid. 
-    @param _beneficiary The address to mint tokens for.
-    @param _minReturnedTokens The minimum number of v2 project tokens expected in return, as a fixed point number with the same amount of decimals as this terminal.
+    @param _beneficiary The address to mint v2 project tokens for.
+    @param _minReturnedTokens The minimum number of v2 project tokens expected in return, as a fixed point number with 18 decimals.
     @param _preferClaimedTokens A flag indicating whether the request prefers to mint v2 project tokens into the beneficiaries wallet rather than leaving them unclaimed. This is only possible if the project has an attached token contract. Leaving them unclaimed saves gas.
     @param _memo A memo to pass along to the emitted event. 
     @param _metadata Bytes to send along to the data source, delegate, and emitted event, if provided. This terminal ignores this property because there's no data source.
@@ -241,7 +265,7 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     _metadata; // Prevents unused var compiler and natspec complaints.
 
     // Make sure the migration hasn't already been finalized.
-    if (finalized[_projectId]) revert TERMINATED();
+    if (finalized[_projectId]) revert MIGRATION_TERMINATED();
 
     // Make sure an amount is specified.
     if (_amount == 0) revert INVALID_AMOUNT();
@@ -259,12 +283,12 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     @param _v1ProjectId The ID of the v1 project whose tokens are being released.
     @param _beneficiary The address that the tokens are being sent to.
   */
-  function releaseV1Token(uint256 _v1ProjectId, address _beneficiary) external override {
+  function releaseV1TokensOf(uint256 _v1ProjectId, address _beneficiary) external override {
     // Make sure only the v1 project owner can retrieve the tokens.
     if (msg.sender != ticketBooth.projects().ownerOf(_v1ProjectId)) revert NOT_ALLOWED();
 
-    // Make sure v1 token conversion has finalized.
-    if (!finalized[_v1ProjectId]) revert NOT_TERMINATED();
+    // Make sure v1 token conversion has not yet finalized.
+    if (finalized[_v1ProjectId]) revert MIGRATION_TERMINATED();
 
     // Get a reference to the v1 project's ERC20 tokens.
     ITickets _v1Token = ticketBooth.ticketsOf(_v1ProjectId);
@@ -273,19 +297,27 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     uint256 _unclaimedBalance = ticketBooth.stakedBalanceOf(address(this), _v1ProjectId);
 
     // Get a reference to this terminal's ERC20 balance.
-    uint256 _claimedBalance = _v1Token == ITickets(address(0))
+    uint256 _erc20Balance = _v1Token == ITickets(address(0))
       ? 0
       : _v1Token.balanceOf(address(this));
 
     // Store the finalized state.
     finalized[_v1ProjectId] = true;
 
-    // Transfer claimed and unclaimed token to the v1 beneficiary.
-    if (_claimedBalance != 0) _v1Token.transfer(_beneficiary, _claimedBalance);
+    // Transfer ERC20 v1 tokens to the beneficiary.
+    if (_erc20Balance != 0) _v1Token.transfer(_beneficiary, _erc20Balance);
+
+    // Transfer unclaimed v1 tokens to the beneficiary.
     if (_unclaimedBalance != 0)
       ticketBooth.transfer(address(this), _v1ProjectId, _unclaimedBalance, _beneficiary);
 
-    emit ReleaseV1Token(_v1ProjectId, _beneficiary, _unclaimedBalance, _claimedBalance, msg.sender);
+    emit ReleaseV1TokensOf(
+      _v1ProjectId,
+      _beneficiary,
+      _unclaimedBalance,
+      _erc20Balance,
+      msg.sender
+    );
   }
 
   /**
@@ -295,11 +327,11 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     @dev 
     This terminal does not allow adding directly to a project's balance.
 
-    @param _projectId The ID of the project to which the funds received belong.
-    @param _amount The amount of tokens to add, as a fixed point number with the same number of decimals as this terminal. If this is an ETH terminal, this is ignored and msg.value is used instead.
-    @param _token The token being paid. This terminal ignores this property since it only manages one currency. 
-    @param _memo A memo to pass along to the emitted event.
-    @param _metadata Extra data to pass along to the emitted event.
+    @param _projectId The ID of the project to which the funds received belong. This is ignored since this terminal doesn't allow this function.
+    @param _amount The amount of tokens to add, as a fixed point number with the same number of decimals as this terminal. This is ignored since this terminal doesn't allow this function.
+    @param _token The token being paid. This terminal ignores this property since it only manages one currency. This is ignored since this terminal doesn't allow this function.
+    @param _memo A memo to pass along to the emitted event. This is ignored since this terminal doesn't allow this function.
+    @param _metadata Extra data to pass along to the emitted event. This is ignored since this terminal doesn't allow this function.
   */
   function addToBalanceOf(
     uint256 _projectId,
@@ -351,7 +383,8 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     // Get a reference to the v1 project's ERC20 tokens.
     ITickets _v1Token = ticketBooth.ticketsOf(_v1ProjectId);
 
-    // The amount of v2 tokens to mint from an ERC20 balance.
+    // Define variables that will be needed outside the scoped section below.
+    // Keep a reference to the amount of v2 tokens to mint from the message sender's v1 ERC20 balance.
     uint256 _tokensToMintFromERC20s;
 
     {
