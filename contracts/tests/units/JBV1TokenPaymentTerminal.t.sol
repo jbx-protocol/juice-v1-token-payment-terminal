@@ -48,7 +48,6 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
   JBV1TokenPaymentTerminal migrationTerminal;
 
   function setUp() public {
-    mockOperatorStore = IJBOperatorStore(address(10));
     mockProjects = IJBProjects(address(20));
     mockDirectory = IJBDirectory(address(30));
     mockTicketBooth = ITicketBooth(address(40));
@@ -59,7 +58,6 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     caller = address(420);
     beneficiary = address(6942069);
 
-    vm.etch(address(mockOperatorStore), new bytes(0x69));
     vm.etch(address(mockProjects), new bytes(0x69));
     vm.etch(address(mockProjectsV1), new bytes(0x69));
     vm.etch(address(mockDirectory), new bytes(0x69));
@@ -67,7 +65,6 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     vm.etch(address(mockV1JBToken), new bytes(0x69));
     vm.etch(address(mockController), new bytes(0x69));
 
-    vm.label(address(mockOperatorStore), 'mockOperatorStore');
     vm.label(address(mockProjects), 'mockProjects');
     vm.label(address(mockProjectsV1), 'mockProjectsV1');
     vm.label(address(mockDirectory), 'mockDirectory');
@@ -79,7 +76,6 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     vm.label(beneficiary, 'beneficiary');
 
     migrationTerminal = new JBV1TokenPaymentTerminal(
-      mockOperatorStore,
       mockProjects,
       mockDirectory,
       mockTicketBooth

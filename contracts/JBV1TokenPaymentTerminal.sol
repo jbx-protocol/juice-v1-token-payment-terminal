@@ -1,12 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.6;
 
-import '@jbx-protocol/contracts-v2/contracts/abstract/JBOperatable.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBController.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBPaymentTerminal.sol';
-import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBRedemptionTerminal.sol';
-import '@jbx-protocol/contracts-v2/contracts/libraries/JBOperations.sol';
-import '@openzeppelin/contracts/security/ReentrancyGuard.sol';
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 import './interfaces/IJBV1TokenPaymentTerminal.sol';
 
@@ -35,7 +31,7 @@ import './interfaces/IJBV1TokenPaymentTerminal.sol';
   Inherits from -
   JBOperatable: Several functions in this contract can only be accessed by a project owner, or an address that has been preconfifigured to be an operator of the project.
 */
-contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTerminal, JBOperatable {
+contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTerminal {
   //*********************************************************************//
   // --------------------------- custom errors ------------------------- //
   //*********************************************************************//
@@ -184,8 +180,7 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
   function supportsInterface(bytes4 _interfaceId) external pure override returns (bool) {
     return
       _interfaceId == type(IJBPaymentTerminal).interfaceId ||
-      _interfaceId == type(IJBV1TokenPaymentTerminal).interfaceId ||
-      _interfaceId == type(IJBOperatable).interfaceId;
+      _interfaceId == type(IJBV1TokenPaymentTerminal).interfaceId;
   }
 
   //*********************************************************************//
@@ -193,17 +188,15 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
   //*********************************************************************//
 
   /**
-    @param _operatorStore A contract storing operator assignments.
     @param _projects A contract which mints ERC-721's that represent project ownership and transfers.
     @param _directory A contract storing directories of terminals and controllers for each project.
     @param _ticketBooth The V1 contract where tokens are stored.
   */
   constructor(
-    IJBOperatorStore _operatorStore,
     IJBProjects _projects,
     IJBDirectory _directory,
     ITicketBooth _ticketBooth
-  ) JBOperatable(_operatorStore) {
+  ) {
     projects = _projects;
     directory = _directory;
     ticketBooth = _ticketBooth;

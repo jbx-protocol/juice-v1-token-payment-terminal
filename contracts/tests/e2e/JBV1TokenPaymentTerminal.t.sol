@@ -14,7 +14,6 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
 
     // Create new migration terminal
     migrationTerminal = new JBV1TokenPaymentTerminal(
-      _jbOperatorStore,
       _jbProjects,
       _jbDirectory,
       _ticketBoothV1
