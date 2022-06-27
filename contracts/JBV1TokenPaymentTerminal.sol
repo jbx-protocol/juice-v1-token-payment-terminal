@@ -180,7 +180,8 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
   function supportsInterface(bytes4 _interfaceId) external pure override returns (bool) {
     return
       _interfaceId == type(IJBPaymentTerminal).interfaceId ||
-      _interfaceId == type(IJBV1TokenPaymentTerminal).interfaceId;
+      _interfaceId == type(IJBV1TokenPaymentTerminal).interfaceId ||
+      super.supportsInterface(_interfaceId);
   }
 
   //*********************************************************************//
