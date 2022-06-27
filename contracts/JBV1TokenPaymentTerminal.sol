@@ -26,10 +26,6 @@ import './interfaces/IJBV1TokenPaymentTerminal.sol';
   Adheres to -
   IJBV1TokenPaymentTerminal: General interface for the methods in this contract that interact with the blockchain's state according to the protocol's rules.
   IJBPaymentTerminal: Standardized interface for project to receive payments.
-
-  @dev
-  Inherits from -
-  JBOperatable: Several functions in this contract can only be accessed by a project owner, or an address that has been preconfifigured to be an operator of the project.
 */
 contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTerminal {
   //*********************************************************************//
