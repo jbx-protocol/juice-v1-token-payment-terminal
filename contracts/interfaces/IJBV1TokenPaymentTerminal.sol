@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.6;
 
-import '@jbox/sol/contracts/TicketBooth.sol';
+import '@jbox/sol/contracts/interfaces/ITicketBooth.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBDirectory.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBProjects.sol';
 

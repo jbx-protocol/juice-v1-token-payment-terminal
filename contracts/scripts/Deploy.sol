@@ -8,7 +8,7 @@ import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBOperatorStore.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBProjects.sol';
 import '@jbx-protocol/contracts-v1/contracts/interfaces/ITicketBooth.sol';
 
-contract Deploy is Test {
+contract DeployRinkeby is Test {
   IJBOperatorStore _operatorStore = IJBOperatorStore(0xEDB2db4b82A4D4956C3B4aA474F7ddf3Ac73c5AB);
   IJBProjects _projects = IJBProjects(0x2d8e361f8F1B5daF33fDb2C99971b33503E60EEE);
   IJBDirectory _directory = IJBDirectory(0x1A9b04A9617ba5C9b7EBfF9668C30F41db6fC21a);
@@ -22,7 +22,6 @@ contract Deploy is Test {
     vm.startBroadcast();
 
     migrationTerminal = new JBV1TokenPaymentTerminal(
-      _operatorStore,
       _projects,
       _directory,
       _ticketBooth
