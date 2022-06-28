@@ -40,9 +40,9 @@ foundryup
 
 # Deploy & verify
 
-Using the solidity script after configuring the .env accordingly (the sender address must be corresponding to the private key)
+#### Setup
 
-See the [Foundry Book for available options](https://book.getfoundry.sh/reference/forge/forge-create.html)
+Configure the .env variables, and add a mnemonic.txt file with the mnemonic of the deployer wallet. The sender address in the .env must correspond to the mnemonic account.
 
 ## Rinkeby
 
@@ -57,3 +57,5 @@ yarn deploy-mainnet
 ```
 
 The deployments are stored in ./broadcast
+
+See the [Foundry Book for available options](https://book.getfoundry.sh/reference/forge/forge-create.html).
