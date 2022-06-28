@@ -1,0 +1,159 @@
+{
+  "abi": [],
+  "bytecode": {
+    "object": "0x",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "linkReferences": {}
+  },
+  "ast": {
+    "absolutePath": "lib/juice-contracts-v2/contracts/structs/JBGlobalFundingCycleMetadata.sol",
+    "id": 50173,
+    "exportedSymbols": {
+      "IERC165": [
+        64219
+      ],
+      "IJBFundingCycleBallot": [
+        47742
+      ],
+      "IJBFundingCycleDataSource": [
+        47782
+      ],
+      "IJBFundingCycleStore": [
+        47878
+      ],
+      "IJBPayDelegate": [
+        47981
+      ],
+      "IJBPaymentTerminal": [
+        48051
+      ],
+      "IJBRedemptionDelegate": [
+        48550
+      ],
+      "JBBallotState": [
+        47112
+      ],
+      "JBDidPayData": [
+        50039
+      ],
+      "JBDidRedeemData": [
+        50060
+      ],
+      "JBFundingCycle": [
+        50111
+      ],
+      "JBFundingCycleData": [
+        50124
+      ],
+      "JBGlobalFundingCycleMetadata": [
+        50172
+      ],
+      "JBPayParamsData": [
+        50219
+      ],
+      "JBRedeemParamsData": [
+        50259
+      ],
+      "JBTokenAmount": [
+        50306
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:414:107",
+    "nodes": [
+      {
+        "id": 50166,
+        "nodeType": "PragmaDirective",
+        "src": "32:22:107",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".6"
+        ]
+      },
+      {
+        "id": 50167,
+        "nodeType": "ImportDirective",
+        "src": "56:55:107",
+        "absolutePath": "lib/juice-contracts-v2/contracts/interfaces/IJBFundingCycleDataSource.sol",
+        "file": "./../interfaces/IJBFundingCycleDataSource.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 50173,
+        "sourceUnit": 47783,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 50172,
+        "nodeType": "StructDefinition",
+        "src": "353:92:107",
+        "canonicalName": "JBGlobalFundingCycleMetadata",
+        "members": [
+          {
+            "constant": false,
+            "id": 50169,
+            "mutability": "mutable",
+            "name": "allowSetTerminals",
+            "nameLocation": "398:17:107",
+            "nodeType": "VariableDeclaration",
+            "scope": 50172,
+            "src": "393:22:107",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 50168,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "393:4:107",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 50171,
+            "mutability": "mutable",
+            "name": "allowSetController",
+            "nameLocation": "424:18:107",
+            "nodeType": "VariableDeclaration",
+            "scope": 50172,
+            "src": "419:23:107",
+            "stateVariable": false,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 50170,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "419:4:107",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "visibility": "internal"
+          }
+        ],
+        "name": "JBGlobalFundingCycleMetadata",
+        "nameLocation": "360:28:107",
+        "scope": 50173,
+        "visibility": "public"
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 107
+}

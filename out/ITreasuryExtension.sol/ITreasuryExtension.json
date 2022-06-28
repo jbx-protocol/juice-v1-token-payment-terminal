@@ -1,0 +1,163 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_projectId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ETHValue",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "ETHValue(uint256)": "b37961da"
+  },
+  "ast": {
+    "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/ITreasuryExtension.sol",
+    "id": 36566,
+    "exportedSymbols": {
+      "ITreasuryExtension": [
+        36565
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:130:45",
+    "nodes": [
+      {
+        "id": 36557,
+        "nodeType": "PragmaDirective",
+        "src": "32:22:45",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".6"
+        ]
+      },
+      {
+        "id": 36565,
+        "nodeType": "ContractDefinition",
+        "src": "56:105:45",
+        "nodes": [
+          {
+            "id": 36564,
+            "nodeType": "FunctionDefinition",
+            "src": "89:70:45",
+            "functionSelector": "b37961da",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "ETHValue",
+            "nameLocation": "98:8:45",
+            "parameters": {
+              "id": 36560,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 36559,
+                  "mutability": "mutable",
+                  "name": "_projectId",
+                  "nameLocation": "115:10:45",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36564,
+                  "src": "107:18:45",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 36558,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "107:7:45",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "106:20:45"
+            },
+            "returnParameters": {
+              "id": 36563,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 36562,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36564,
+                  "src": "150:7:45",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 36561,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "150:7:45",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "149:9:45"
+            },
+            "scope": 36565,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          36565
+        ],
+        "name": "ITreasuryExtension",
+        "nameLocation": "66:18:45",
+        "scope": 36566,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 45
+}

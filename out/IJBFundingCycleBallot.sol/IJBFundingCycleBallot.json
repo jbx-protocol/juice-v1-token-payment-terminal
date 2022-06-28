@@ -1,0 +1,388 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "duration",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_projectId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_configuration",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_start",
+          "type": "uint256"
+        }
+      ],
+      "name": "stateOf",
+      "outputs": [
+        {
+          "internalType": "enum JBBallotState",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "duration()": "0fb5a6b4",
+    "stateOf(uint256,uint256,uint256)": "74167907",
+    "supportsInterface(bytes4)": "01ffc9a7"
+  },
+  "ast": {
+    "absolutePath": "lib/juice-contracts-v2/contracts/interfaces/IJBFundingCycleBallot.sol",
+    "id": 47743,
+    "exportedSymbols": {
+      "IERC165": [
+        64219
+      ],
+      "IJBFundingCycleBallot": [
+        47742
+      ],
+      "IJBFundingCycleStore": [
+        47878
+      ],
+      "JBBallotState": [
+        47112
+      ],
+      "JBFundingCycle": [
+        50111
+      ],
+      "JBFundingCycleData": [
+        50124
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:404:70",
+    "nodes": [
+      {
+        "id": 47719,
+        "nodeType": "PragmaDirective",
+        "src": "32:22:70",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".6"
+        ]
+      },
+      {
+        "id": 47720,
+        "nodeType": "ImportDirective",
+        "src": "56:65:70",
+        "absolutePath": "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol",
+        "file": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 47743,
+        "sourceUnit": 64220,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 47721,
+        "nodeType": "ImportDirective",
+        "src": "122:38:70",
+        "absolutePath": "lib/juice-contracts-v2/contracts/enums/JBBallotState.sol",
+        "file": "./../enums/JBBallotState.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 47743,
+        "sourceUnit": 47113,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 47722,
+        "nodeType": "ImportDirective",
+        "src": "161:36:70",
+        "absolutePath": "lib/juice-contracts-v2/contracts/interfaces/IJBFundingCycleStore.sol",
+        "file": "./IJBFundingCycleStore.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 47743,
+        "sourceUnit": 47879,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 47742,
+        "nodeType": "ContractDefinition",
+        "src": "199:236:70",
+        "nodes": [
+          {
+            "id": 47729,
+            "nodeType": "FunctionDefinition",
+            "src": "246:52:70",
+            "functionSelector": "0fb5a6b4",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "duration",
+            "nameLocation": "255:8:70",
+            "parameters": {
+              "id": 47725,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "263:2:70"
+            },
+            "returnParameters": {
+              "id": 47728,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 47727,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 47729,
+                  "src": "289:7:70",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 47726,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "289:7:70",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "288:9:70"
+            },
+            "scope": 47742,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 47741,
+            "nodeType": "FunctionDefinition",
+            "src": "302:131:70",
+            "functionSelector": "74167907",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "stateOf",
+            "nameLocation": "311:7:70",
+            "parameters": {
+              "id": 47736,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 47731,
+                  "mutability": "mutable",
+                  "name": "_projectId",
+                  "nameLocation": "332:10:70",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 47741,
+                  "src": "324:18:70",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 47730,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "324:7:70",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 47733,
+                  "mutability": "mutable",
+                  "name": "_configuration",
+                  "nameLocation": "356:14:70",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 47741,
+                  "src": "348:22:70",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 47732,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "348:7:70",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 47735,
+                  "mutability": "mutable",
+                  "name": "_start",
+                  "nameLocation": "384:6:70",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 47741,
+                  "src": "376:14:70",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 47734,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "376:7:70",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "318:76:70"
+            },
+            "returnParameters": {
+              "id": 47740,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 47739,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 47741,
+                  "src": "418:13:70",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_JBBallotState_$47112",
+                    "typeString": "enum JBBallotState"
+                  },
+                  "typeName": {
+                    "id": 47738,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 47737,
+                      "name": "JBBallotState",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 47112,
+                      "src": "418:13:70"
+                    },
+                    "referencedDeclaration": 47112,
+                    "src": "418:13:70",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_JBBallotState_$47112",
+                      "typeString": "enum JBBallotState"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "417:15:70"
+            },
+            "scope": 47742,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 47723,
+              "name": "IERC165",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 64219,
+              "src": "234:7:70"
+            },
+            "id": 47724,
+            "nodeType": "InheritanceSpecifier",
+            "src": "234:7:70"
+          }
+        ],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          47742,
+          64219
+        ],
+        "name": "IJBFundingCycleBallot",
+        "nameLocation": "209:21:70",
+        "scope": 47743,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 70
+}

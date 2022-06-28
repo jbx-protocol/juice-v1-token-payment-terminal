@@ -1,0 +1,720 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_projectId",
+          "type": "uint256"
+        }
+      ],
+      "name": "addToBalance",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract ITerminal",
+          "name": "_contract",
+          "type": "address"
+        }
+      ],
+      "name": "allowMigration",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_projectId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "contract ITerminal",
+          "name": "_to",
+          "type": "address"
+        }
+      ],
+      "name": "migrate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract ITerminal",
+          "name": "_terminal",
+          "type": "address"
+        }
+      ],
+      "name": "migrationIsAllowed",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_projectId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_beneficiary",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_memo",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "_preferUnstakedTickets",
+          "type": "bool"
+        }
+      ],
+      "name": "pay",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "fundingCycleId",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "terminalDirectory",
+      "outputs": [
+        {
+          "internalType": "contract ITerminalDirectory",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "addToBalance(uint256)": "8a19e355",
+    "allowMigration(address)": "308a20ad",
+    "migrate(uint256,address)": "405b84fa",
+    "migrationIsAllowed(address)": "b9f11091",
+    "pay(uint256,address,string,bool)": "02c8986f",
+    "terminalDirectory()": "6abcf8e3"
+  },
+  "ast": {
+    "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/ITerminal.sol",
+    "id": 35462,
+    "exportedSymbols": {
+      "IDirectPaymentAddress": [
+        34781
+      ],
+      "IProjects": [
+        35411
+      ],
+      "ITerminal": [
+        35461
+      ],
+      "ITerminalDirectory": [
+        35552
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:608:38",
+    "nodes": [
+      {
+        "id": 35413,
+        "nodeType": "PragmaDirective",
+        "src": "32:22:38",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".6"
+        ]
+      },
+      {
+        "id": 35414,
+        "nodeType": "ImportDirective",
+        "src": "56:34:38",
+        "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/ITerminalDirectory.sol",
+        "file": "./ITerminalDirectory.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 35462,
+        "sourceUnit": 35553,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 35461,
+        "nodeType": "ContractDefinition",
+        "src": "92:547:38",
+        "nodes": [
+          {
+            "id": 35420,
+            "nodeType": "FunctionDefinition",
+            "src": "116:72:38",
+            "functionSelector": "6abcf8e3",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "terminalDirectory",
+            "nameLocation": "125:17:38",
+            "parameters": {
+              "id": 35415,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "142:2:38"
+            },
+            "returnParameters": {
+              "id": 35419,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 35418,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35420,
+                  "src": "168:18:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ITerminalDirectory_$35552",
+                    "typeString": "contract ITerminalDirectory"
+                  },
+                  "typeName": {
+                    "id": 35417,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 35416,
+                      "name": "ITerminalDirectory",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 35552,
+                      "src": "168:18:38"
+                    },
+                    "referencedDeclaration": 35552,
+                    "src": "168:18:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ITerminalDirectory_$35552",
+                      "typeString": "contract ITerminalDirectory"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "167:20:38"
+            },
+            "scope": 35461,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 35428,
+            "nodeType": "FunctionDefinition",
+            "src": "192:78:38",
+            "functionSelector": "b9f11091",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "migrationIsAllowed",
+            "nameLocation": "201:18:38",
+            "parameters": {
+              "id": 35424,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 35423,
+                  "mutability": "mutable",
+                  "name": "_terminal",
+                  "nameLocation": "230:9:38",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35428,
+                  "src": "220:19:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ITerminal_$35461",
+                    "typeString": "contract ITerminal"
+                  },
+                  "typeName": {
+                    "id": 35422,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 35421,
+                      "name": "ITerminal",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 35461,
+                      "src": "220:9:38"
+                    },
+                    "referencedDeclaration": 35461,
+                    "src": "220:9:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ITerminal_$35461",
+                      "typeString": "contract ITerminal"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "219:21:38"
+            },
+            "returnParameters": {
+              "id": 35427,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 35426,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35428,
+                  "src": "264:4:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 35425,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "264:4:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "263:6:38"
+            },
+            "scope": 35461,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 35441,
+            "nodeType": "FunctionDefinition",
+            "src": "274:177:38",
+            "functionSelector": "02c8986f",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "pay",
+            "nameLocation": "283:3:38",
+            "parameters": {
+              "id": 35437,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 35430,
+                  "mutability": "mutable",
+                  "name": "_projectId",
+                  "nameLocation": "300:10:38",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35441,
+                  "src": "292:18:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 35429,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "292:7:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 35432,
+                  "mutability": "mutable",
+                  "name": "_beneficiary",
+                  "nameLocation": "324:12:38",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35441,
+                  "src": "316:20:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 35431,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "316:7:38",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 35434,
+                  "mutability": "mutable",
+                  "name": "_memo",
+                  "nameLocation": "358:5:38",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35441,
+                  "src": "342:21:38",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_calldata_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 35433,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "342:6:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 35436,
+                  "mutability": "mutable",
+                  "name": "_preferUnstakedTickets",
+                  "nameLocation": "374:22:38",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35441,
+                  "src": "369:27:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 35435,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "369:4:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "286:114:38"
+            },
+            "returnParameters": {
+              "id": 35440,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 35439,
+                  "mutability": "mutable",
+                  "name": "fundingCycleId",
+                  "nameLocation": "435:14:38",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35441,
+                  "src": "427:22:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 35438,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "427:7:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "426:24:38"
+            },
+            "scope": 35461,
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 35446,
+            "nodeType": "FunctionDefinition",
+            "src": "455:59:38",
+            "functionSelector": "8a19e355",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addToBalance",
+            "nameLocation": "464:12:38",
+            "parameters": {
+              "id": 35444,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 35443,
+                  "mutability": "mutable",
+                  "name": "_projectId",
+                  "nameLocation": "485:10:38",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35446,
+                  "src": "477:18:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 35442,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "477:7:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "476:20:38"
+            },
+            "returnParameters": {
+              "id": 35445,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "513:0:38"
+            },
+            "scope": 35461,
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 35452,
+            "nodeType": "FunctionDefinition",
+            "src": "518:54:38",
+            "functionSelector": "308a20ad",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "allowMigration",
+            "nameLocation": "527:14:38",
+            "parameters": {
+              "id": 35450,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 35449,
+                  "mutability": "mutable",
+                  "name": "_contract",
+                  "nameLocation": "552:9:38",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35452,
+                  "src": "542:19:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ITerminal_$35461",
+                    "typeString": "contract ITerminal"
+                  },
+                  "typeName": {
+                    "id": 35448,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 35447,
+                      "name": "ITerminal",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 35461,
+                      "src": "542:9:38"
+                    },
+                    "referencedDeclaration": 35461,
+                    "src": "542:9:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ITerminal_$35461",
+                      "typeString": "contract ITerminal"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "541:21:38"
+            },
+            "returnParameters": {
+              "id": 35451,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "571:0:38"
+            },
+            "scope": 35461,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 35460,
+            "nodeType": "FunctionDefinition",
+            "src": "576:61:38",
+            "functionSelector": "405b84fa",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "migrate",
+            "nameLocation": "585:7:38",
+            "parameters": {
+              "id": 35458,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 35454,
+                  "mutability": "mutable",
+                  "name": "_projectId",
+                  "nameLocation": "601:10:38",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35460,
+                  "src": "593:18:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 35453,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "593:7:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 35457,
+                  "mutability": "mutable",
+                  "name": "_to",
+                  "nameLocation": "623:3:38",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35460,
+                  "src": "613:13:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ITerminal_$35461",
+                    "typeString": "contract ITerminal"
+                  },
+                  "typeName": {
+                    "id": 35456,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 35455,
+                      "name": "ITerminal",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 35461,
+                      "src": "613:9:38"
+                    },
+                    "referencedDeclaration": 35461,
+                    "src": "613:9:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ITerminal_$35461",
+                      "typeString": "contract ITerminal"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "592:35:38"
+            },
+            "returnParameters": {
+              "id": 35459,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "636:0:38"
+            },
+            "scope": 35461,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          35461
+        ],
+        "name": "ITerminal",
+        "nameLocation": "102:9:38",
+        "scope": 35462,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 38
+}

@@ -1,0 +1,472 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "deposited",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getCurrentBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address payable",
+          "name": "_beneficiary",
+          "type": "address"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_beneficiary",
+          "type": "address"
+        }
+      ],
+      "name": "withdrawAll",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "deposit()": "d0e30db0",
+    "deposited()": "eef49ee3",
+    "getCurrentBalance()": "a5749710",
+    "withdraw(uint256,address)": "00f714ce",
+    "withdrawAll(address)": "fa09e630"
+  },
+  "ast": {
+    "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/IYielder.sol",
+    "id": 36598,
+    "exportedSymbols": {
+      "FundingCycleMetadata": [
+        35580
+      ],
+      "IERC20": [
+        59351
+      ],
+      "ITerminalV1": [
+        35939
+      ],
+      "IYielder": [
+        36597
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:563:46",
+    "nodes": [
+      {
+        "id": 36567,
+        "nodeType": "PragmaDirective",
+        "src": "32:22:46",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".6"
+        ]
+      },
+      {
+        "id": 36568,
+        "nodeType": "ImportDirective",
+        "src": "56:56:46",
+        "absolutePath": "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+        "file": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 36598,
+        "sourceUnit": 59352,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 36569,
+        "nodeType": "ImportDirective",
+        "src": "114:27:46",
+        "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/ITerminalV1.sol",
+        "file": "./ITerminalV1.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 36598,
+        "sourceUnit": 35940,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 36597,
+        "nodeType": "ContractDefinition",
+        "src": "225:369:46",
+        "nodes": [
+          {
+            "id": 36574,
+            "nodeType": "FunctionDefinition",
+            "src": "250:53:46",
+            "functionSelector": "eef49ee3",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deposited",
+            "nameLocation": "259:9:46",
+            "parameters": {
+              "id": 36570,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "268:2:46"
+            },
+            "returnParameters": {
+              "id": 36573,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 36572,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36574,
+                  "src": "294:7:46",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 36571,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "294:7:46",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "293:9:46"
+            },
+            "scope": 36597,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 36579,
+            "nodeType": "FunctionDefinition",
+            "src": "309:61:46",
+            "functionSelector": "a5749710",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getCurrentBalance",
+            "nameLocation": "318:17:46",
+            "parameters": {
+              "id": 36575,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "335:2:46"
+            },
+            "returnParameters": {
+              "id": 36578,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 36577,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36579,
+                  "src": "361:7:46",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 36576,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "361:7:46",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "360:9:46"
+            },
+            "scope": 36597,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 36582,
+            "nodeType": "FunctionDefinition",
+            "src": "376:36:46",
+            "functionSelector": "d0e30db0",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deposit",
+            "nameLocation": "385:7:46",
+            "parameters": {
+              "id": 36580,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "392:2:46"
+            },
+            "returnParameters": {
+              "id": 36581,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "411:0:46"
+            },
+            "scope": 36597,
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 36589,
+            "nodeType": "FunctionDefinition",
+            "src": "418:74:46",
+            "functionSelector": "00f714ce",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "withdraw",
+            "nameLocation": "427:8:46",
+            "parameters": {
+              "id": 36587,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 36584,
+                  "mutability": "mutable",
+                  "name": "_amount",
+                  "nameLocation": "444:7:46",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36589,
+                  "src": "436:15:46",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 36583,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "436:7:46",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 36586,
+                  "mutability": "mutable",
+                  "name": "_beneficiary",
+                  "nameLocation": "469:12:46",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36589,
+                  "src": "453:28:46",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address_payable",
+                    "typeString": "address payable"
+                  },
+                  "typeName": {
+                    "id": 36585,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "453:15:46",
+                    "stateMutability": "payable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address_payable",
+                      "typeString": "address payable"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "435:47:46"
+            },
+            "returnParameters": {
+              "id": 36588,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "491:0:46"
+            },
+            "scope": 36597,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 36596,
+            "nodeType": "FunctionDefinition",
+            "src": "498:94:46",
+            "functionSelector": "fa09e630",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "withdrawAll",
+            "nameLocation": "507:11:46",
+            "parameters": {
+              "id": 36592,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 36591,
+                  "mutability": "mutable",
+                  "name": "_beneficiary",
+                  "nameLocation": "535:12:46",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36596,
+                  "src": "519:28:46",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address_payable",
+                    "typeString": "address payable"
+                  },
+                  "typeName": {
+                    "id": 36590,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "519:15:46",
+                    "stateMutability": "payable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address_payable",
+                      "typeString": "address payable"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "518:30:46"
+            },
+            "returnParameters": {
+              "id": 36595,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 36594,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36596,
+                  "src": "583:7:46",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 36593,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "583:7:46",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "582:9:46"
+            },
+            "scope": 36597,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          36597
+        ],
+        "name": "IYielder",
+        "nameLocation": "235:8:46",
+        "scope": 36598,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 46
+}
