@@ -1,0 +1,414 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "MAX_DISCOUNT_RATE",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAX_FEE",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAX_FEE_DISCOUNT",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAX_REDEMPTION_RATE",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAX_RESERVED_RATE",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "SPLITS_TOTAL_PERCENT",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x60d3610039600b82828239805160001a60731461002c57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe730000000000000000000000000000000000000000301460806040526004361060745760003560e01c8063870bc1fd116055578063870bc1fd146079578063bc063e1a146079578063d3c4fca914607957600080fd5b806319a9f9411460795780634bb970421460955780635d14fef8146095575b600080fd5b6083633b9aca0081565b60405190815260200160405180910390f35b60836127108156fea26469706673582212201c288751682e7d77f0f689c43d0e617dfcd0d4392fccae47acda356ed56385fb64736f6c63430008060033",
+    "sourceMap": "124:355:92:-:0;;;;;;;;;;;;;;;-1:-1:-1;;;124:355:92;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x730000000000000000000000000000000000000000301460806040526004361060745760003560e01c8063870bc1fd116055578063870bc1fd146079578063bc063e1a146079578063d3c4fca914607957600080fd5b806319a9f9411460795780634bb970421460955780635d14fef8146095575b600080fd5b6083633b9aca0081565b60405190815260200160405180910390f35b60836127108156fea26469706673582212201c288751682e7d77f0f689c43d0e617dfcd0d4392fccae47acda356ed56385fb64736f6c63430008060033",
+    "sourceMap": "124:355:92:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;423:53;;466:10;423:53;;;;;168:25:171;;;156:2;141:18;423:53:92;;;;;;;201:51;;247:5;201:51;",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "MAX_DISCOUNT_RATE()": "870bc1fd",
+    "MAX_FEE()": "bc063e1a",
+    "MAX_FEE_DISCOUNT()": "19a9f941",
+    "MAX_REDEMPTION_RATE()": "4bb97042",
+    "MAX_RESERVED_RATE()": "5d14fef8",
+    "SPLITS_TOTAL_PERCENT()": "d3c4fca9"
+  },
+  "ast": {
+    "absolutePath": "lib/juice-contracts-v2/contracts/libraries/JBConstants.sol",
+    "id": 49210,
+    "exportedSymbols": {
+      "JBConstants": [
+        49209
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:448:92",
+    "nodes": [
+      {
+        "id": 49189,
+        "nodeType": "PragmaDirective",
+        "src": "32:22:92",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".6"
+        ]
+      },
+      {
+        "id": 49209,
+        "nodeType": "ContractDefinition",
+        "src": "124:355:92",
+        "nodes": [
+          {
+            "id": 49193,
+            "nodeType": "VariableDeclaration",
+            "src": "148:49:92",
+            "constant": true,
+            "functionSelector": "5d14fef8",
+            "mutability": "constant",
+            "name": "MAX_RESERVED_RATE",
+            "nameLocation": "172:17:92",
+            "scope": 49209,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 49191,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "148:7:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "3130303030",
+              "id": 49192,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "192:5:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_10000_by_1",
+                "typeString": "int_const 10000"
+              },
+              "value": "10000"
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 49196,
+            "nodeType": "VariableDeclaration",
+            "src": "201:51:92",
+            "constant": true,
+            "functionSelector": "4bb97042",
+            "mutability": "constant",
+            "name": "MAX_REDEMPTION_RATE",
+            "nameLocation": "225:19:92",
+            "scope": 49209,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 49194,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "201:7:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "3130303030",
+              "id": 49195,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "247:5:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_10000_by_1",
+                "typeString": "int_const 10000"
+              },
+              "value": "10000"
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 49199,
+            "nodeType": "VariableDeclaration",
+            "src": "256:54:92",
+            "constant": true,
+            "functionSelector": "870bc1fd",
+            "mutability": "constant",
+            "name": "MAX_DISCOUNT_RATE",
+            "nameLocation": "280:17:92",
+            "scope": 49209,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 49197,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "256:7:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "31303030303030303030",
+              "id": 49198,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "300:10:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_1000000000_by_1",
+                "typeString": "int_const 1000000000"
+              },
+              "value": "1000000000"
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 49202,
+            "nodeType": "VariableDeclaration",
+            "src": "314:57:92",
+            "constant": true,
+            "functionSelector": "d3c4fca9",
+            "mutability": "constant",
+            "name": "SPLITS_TOTAL_PERCENT",
+            "nameLocation": "338:20:92",
+            "scope": 49209,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 49200,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "314:7:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "31303030303030303030",
+              "id": 49201,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "361:10:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_1000000000_by_1",
+                "typeString": "int_const 1000000000"
+              },
+              "value": "1000000000"
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 49205,
+            "nodeType": "VariableDeclaration",
+            "src": "375:44:92",
+            "constant": true,
+            "functionSelector": "bc063e1a",
+            "mutability": "constant",
+            "name": "MAX_FEE",
+            "nameLocation": "399:7:92",
+            "scope": 49209,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 49203,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "375:7:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "31303030303030303030",
+              "id": 49204,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "409:10:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_1000000000_by_1",
+                "typeString": "int_const 1000000000"
+              },
+              "value": "1000000000"
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 49208,
+            "nodeType": "VariableDeclaration",
+            "src": "423:53:92",
+            "constant": true,
+            "functionSelector": "19a9f941",
+            "mutability": "constant",
+            "name": "MAX_FEE_DISCOUNT",
+            "nameLocation": "447:16:92",
+            "scope": 49209,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 49206,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "423:7:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "31303030303030303030",
+              "id": 49207,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "466:10:92",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_1000000000_by_1",
+                "typeString": "int_const 1000000000"
+              },
+              "value": "1000000000"
+            },
+            "visibility": "public"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": {
+          "id": 49190,
+          "nodeType": "StructuredDocumentation",
+          "src": "56:67:92",
+          "text": "@notice\nGlobal constants used across Juicebox contracts."
+        },
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          49209
+        ],
+        "name": "JBConstants",
+        "nameLocation": "132:11:92",
+        "scope": 49210,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 92
+}

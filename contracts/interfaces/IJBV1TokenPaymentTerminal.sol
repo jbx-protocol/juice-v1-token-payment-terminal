@@ -6,7 +6,7 @@ import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBDirectory.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBProjects.sol';
 
 interface IJBV1TokenPaymentTerminal {
-  event SetV1ProjectId(uint256 indexed _projectId, uint256 indexed _v1ProjectId, address caller);
+  event SetV1ProjectId(uint256 indexed projectId, uint256 indexed v1ProjectId, address caller);
 
   event Pay(
     uint256 indexed projectId,
@@ -36,7 +36,7 @@ interface IJBV1TokenPaymentTerminal {
 
   function finalized(uint256 _projectId) external view returns (bool);
 
-  function setV1ProjectId(uint256 _projectId, uint256 _v1ProjectId) external;
+  function setV1ProjectIdOf(uint256 _projectId, uint256 _v1ProjectId) external;
 
   function releaseV1TokensOf(uint256 _projectId, address _beneficiary) external;
 }

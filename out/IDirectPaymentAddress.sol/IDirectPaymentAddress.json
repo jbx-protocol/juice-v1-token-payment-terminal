@@ -1,0 +1,532 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "payer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "projectId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "beneficiary",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "memo",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "preferUnstakedTickets",
+          "type": "bool"
+        }
+      ],
+      "name": "Forward",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "memo",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "projectId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "terminalDirectory",
+      "outputs": [
+        {
+          "internalType": "contract ITerminalDirectory",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "memo()": "58c3b870",
+    "projectId()": "3fafa127",
+    "terminalDirectory()": "6abcf8e3"
+  },
+  "ast": {
+    "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/IDirectPaymentAddress.sol",
+    "id": 34782,
+    "exportedSymbols": {
+      "IDirectPaymentAddress": [
+        34781
+      ],
+      "ITerminal": [
+        35461
+      ],
+      "ITerminalDirectory": [
+        35552
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:504:29",
+    "nodes": [
+      {
+        "id": 34748,
+        "nodeType": "PragmaDirective",
+        "src": "32:22:29",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".6"
+        ]
+      },
+      {
+        "id": 34749,
+        "nodeType": "ImportDirective",
+        "src": "56:34:29",
+        "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/ITerminalDirectory.sol",
+        "file": "./ITerminalDirectory.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 34782,
+        "sourceUnit": 35553,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 34750,
+        "nodeType": "ImportDirective",
+        "src": "91:25:29",
+        "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/ITerminal.sol",
+        "file": "./ITerminal.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 34782,
+        "sourceUnit": 35462,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 34781,
+        "nodeType": "ContractDefinition",
+        "src": "118:417:29",
+        "nodes": [
+          {
+            "id": 34764,
+            "nodeType": "EventDefinition",
+            "src": "156:195:29",
+            "anonymous": false,
+            "name": "Forward",
+            "nameLocation": "162:7:29",
+            "parameters": {
+              "id": 34763,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 34752,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "payer",
+                  "nameLocation": "195:5:29",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 34764,
+                  "src": "179:21:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 34751,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "179:7:29",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 34754,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "projectId",
+                  "nameLocation": "226:9:29",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 34764,
+                  "src": "210:25:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 34753,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "210:7:29",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 34756,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "beneficiary",
+                  "nameLocation": "253:11:29",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 34764,
+                  "src": "245:19:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 34755,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "245:7:29",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 34758,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "value",
+                  "nameLocation": "282:5:29",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 34764,
+                  "src": "274:13:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 34757,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "274:7:29",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 34760,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "memo",
+                  "nameLocation": "304:4:29",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 34764,
+                  "src": "297:11:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 34759,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "297:6:29",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 34762,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "preferUnstakedTickets",
+                  "nameLocation": "323:21:29",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 34764,
+                  "src": "318:26:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 34761,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "318:4:29",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "169:181:29"
+            }
+          },
+          {
+            "id": 34770,
+            "nodeType": "FunctionDefinition",
+            "src": "357:67:29",
+            "functionSelector": "6abcf8e3",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "terminalDirectory",
+            "nameLocation": "366:17:29",
+            "parameters": {
+              "id": 34765,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "383:2:29"
+            },
+            "returnParameters": {
+              "id": 34769,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 34768,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 34770,
+                  "src": "404:18:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ITerminalDirectory_$35552",
+                    "typeString": "contract ITerminalDirectory"
+                  },
+                  "typeName": {
+                    "id": 34767,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 34766,
+                      "name": "ITerminalDirectory",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 35552,
+                      "src": "404:18:29"
+                    },
+                    "referencedDeclaration": 35552,
+                    "src": "404:18:29",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ITerminalDirectory_$35552",
+                      "typeString": "contract ITerminalDirectory"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "403:20:29"
+            },
+            "scope": 34781,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 34775,
+            "nodeType": "FunctionDefinition",
+            "src": "430:48:29",
+            "functionSelector": "3fafa127",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "projectId",
+            "nameLocation": "439:9:29",
+            "parameters": {
+              "id": 34771,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "448:2:29"
+            },
+            "returnParameters": {
+              "id": 34774,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 34773,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 34775,
+                  "src": "469:7:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 34772,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "469:7:29",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "468:9:29"
+            },
+            "scope": 34781,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 34780,
+            "nodeType": "FunctionDefinition",
+            "src": "484:49:29",
+            "functionSelector": "58c3b870",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "memo",
+            "nameLocation": "493:4:29",
+            "parameters": {
+              "id": 34776,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "497:2:29"
+            },
+            "returnParameters": {
+              "id": 34779,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 34778,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 34780,
+                  "src": "518:13:29",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 34777,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "518:6:29",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "517:15:29"
+            },
+            "scope": 34781,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          34781
+        ],
+        "name": "IDirectPaymentAddress",
+        "nameLocation": "128:21:29",
+        "scope": 34782,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 29
+}

@@ -1,0 +1,160 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "terminalDirectory",
+      "outputs": [
+        {
+          "internalType": "contract ITerminalDirectory",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "terminalDirectory()": "6abcf8e3"
+  },
+  "ast": {
+    "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/ITerminalUtility.sol",
+    "id": 35563,
+    "exportedSymbols": {
+      "IDirectPaymentAddress": [
+        34781
+      ],
+      "IProjects": [
+        35411
+      ],
+      "ITerminal": [
+        35461
+      ],
+      "ITerminalDirectory": [
+        35552
+      ],
+      "ITerminalUtility": [
+        35562
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:168:40",
+    "nodes": [
+      {
+        "id": 35554,
+        "nodeType": "PragmaDirective",
+        "src": "32:22:40",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".6"
+        ]
+      },
+      {
+        "id": 35555,
+        "nodeType": "ImportDirective",
+        "src": "56:34:40",
+        "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/ITerminalDirectory.sol",
+        "file": "./ITerminalDirectory.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 35563,
+        "sourceUnit": 35553,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 35562,
+        "nodeType": "ContractDefinition",
+        "src": "92:107:40",
+        "nodes": [
+          {
+            "id": 35561,
+            "nodeType": "FunctionDefinition",
+            "src": "125:72:40",
+            "functionSelector": "6abcf8e3",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "terminalDirectory",
+            "nameLocation": "134:17:40",
+            "parameters": {
+              "id": 35556,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "151:2:40"
+            },
+            "returnParameters": {
+              "id": 35560,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 35559,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35561,
+                  "src": "177:18:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ITerminalDirectory_$35552",
+                    "typeString": "contract ITerminalDirectory"
+                  },
+                  "typeName": {
+                    "id": 35558,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 35557,
+                      "name": "ITerminalDirectory",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 35552,
+                      "src": "177:18:40"
+                    },
+                    "referencedDeclaration": 35552,
+                    "src": "177:18:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ITerminalDirectory_$35552",
+                      "typeString": "contract ITerminalDirectory"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "176:20:40"
+            },
+            "scope": 35562,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          35562
+        ],
+        "name": "ITerminalUtility",
+        "nameLocation": "102:16:40",
+        "scope": 35563,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 40
+}

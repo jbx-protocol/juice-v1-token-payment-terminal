@@ -1,0 +1,151 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "operatorStore",
+      "outputs": [
+        {
+          "internalType": "contract IOperatorStore",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "operatorStore()": "ad007d63"
+  },
+  "ast": {
+    "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/IOperatable.sol",
+    "id": 35117,
+    "exportedSymbols": {
+      "IOperatable": [
+        35116
+      ],
+      "IOperatorStore": [
+        35193
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:151:34",
+    "nodes": [
+      {
+        "id": 35108,
+        "nodeType": "PragmaDirective",
+        "src": "32:22:34",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".6"
+        ]
+      },
+      {
+        "id": 35109,
+        "nodeType": "ImportDirective",
+        "src": "56:30:34",
+        "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/IOperatorStore.sol",
+        "file": "./IOperatorStore.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 35117,
+        "sourceUnit": 35194,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 35116,
+        "nodeType": "ContractDefinition",
+        "src": "88:94:34",
+        "nodes": [
+          {
+            "id": 35115,
+            "nodeType": "FunctionDefinition",
+            "src": "116:64:34",
+            "functionSelector": "ad007d63",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "operatorStore",
+            "nameLocation": "125:13:34",
+            "parameters": {
+              "id": 35110,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "138:2:34"
+            },
+            "returnParameters": {
+              "id": 35114,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 35113,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35115,
+                  "src": "164:14:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IOperatorStore_$35193",
+                    "typeString": "contract IOperatorStore"
+                  },
+                  "typeName": {
+                    "id": 35112,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 35111,
+                      "name": "IOperatorStore",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 35193,
+                      "src": "164:14:34"
+                    },
+                    "referencedDeclaration": 35193,
+                    "src": "164:14:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IOperatorStore_$35193",
+                      "typeString": "contract IOperatorStore"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "163:16:34"
+            },
+            "scope": 35116,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          35116
+        ],
+        "name": "IOperatable",
+        "nameLocation": "98:11:34",
+        "scope": 35117,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 34
+}

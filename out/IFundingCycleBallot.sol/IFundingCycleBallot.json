@@ -1,0 +1,390 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "duration",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_fundingCycleId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_configured",
+          "type": "uint256"
+        }
+      ],
+      "name": "state",
+      "outputs": [
+        {
+          "internalType": "enum BallotState",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "duration()": "0fb5a6b4",
+    "state(uint256,uint256)": "4d393dc9"
+  },
+  "ast": {
+    "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/IFundingCycleBallot.sol",
+    "id": 32516,
+    "exportedSymbols": {
+      "AggregatorV3Interface": [
+        48062
+      ],
+      "BallotState": [
+        32499
+      ],
+      "FundingCycle": [
+        32554
+      ],
+      "FundingCycleMetadata": [
+        33290
+      ],
+      "FundingCycleProperties": [
+        32568
+      ],
+      "IDirectPaymentAddress": [
+        32491
+      ],
+      "IERC165": [
+        59425
+      ],
+      "IERC20": [
+        57107
+      ],
+      "IERC721": [
+        59338
+      ],
+      "IFundingCycleBallot": [
+        32515
+      ],
+      "IFundingCycles": [
+        32691
+      ],
+      "IModAllocator": [
+        32715
+      ],
+      "IModStore": [
+        32816
+      ],
+      "IOperatorStore": [
+        32903
+      ],
+      "IPrices": [
+        32949
+      ],
+      "IProjects": [
+        33121
+      ],
+      "ITerminal": [
+        33171
+      ],
+      "ITerminalDirectory": [
+        33262
+      ],
+      "ITerminalV1": [
+        33649
+      ],
+      "ITicketBooth": [
+        34245
+      ],
+      "ITickets": [
+        34265
+      ],
+      "IYielder": [
+        34307
+      ],
+      "PayoutMod": [
+        32734
+      ],
+      "TicketMod": [
+        32743
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:343:25",
+    "nodes": [
+      {
+        "id": 32493,
+        "nodeType": "PragmaDirective",
+        "src": "32:22:25",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".6"
+        ]
+      },
+      {
+        "id": 32494,
+        "nodeType": "ImportDirective",
+        "src": "56:27:25",
+        "absolutePath": "lib/juice-contracts-v1/contracts/interfaces/ITerminalV1.sol",
+        "file": "./ITerminalV1.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 32516,
+        "sourceUnit": 33650,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 32499,
+        "nodeType": "EnumDefinition",
+        "src": "85:70:25",
+        "canonicalName": "BallotState",
+        "members": [
+          {
+            "id": 32495,
+            "name": "Approved",
+            "nameLocation": "108:8:25",
+            "nodeType": "EnumValue",
+            "src": "108:8:25"
+          },
+          {
+            "id": 32496,
+            "name": "Active",
+            "nameLocation": "122:6:25",
+            "nodeType": "EnumValue",
+            "src": "122:6:25"
+          },
+          {
+            "id": 32497,
+            "name": "Failed",
+            "nameLocation": "134:6:25",
+            "nodeType": "EnumValue",
+            "src": "134:6:25"
+          },
+          {
+            "id": 32498,
+            "name": "Standby",
+            "nameLocation": "146:7:25",
+            "nodeType": "EnumValue",
+            "src": "146:7:25"
+          }
+        ],
+        "name": "BallotState",
+        "nameLocation": "90:11:25"
+      },
+      {
+        "id": 32515,
+        "nodeType": "ContractDefinition",
+        "src": "157:217:25",
+        "nodes": [
+          {
+            "id": 32504,
+            "nodeType": "FunctionDefinition",
+            "src": "193:52:25",
+            "functionSelector": "0fb5a6b4",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "duration",
+            "nameLocation": "202:8:25",
+            "parameters": {
+              "id": 32500,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "210:2:25"
+            },
+            "returnParameters": {
+              "id": 32503,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 32502,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32504,
+                  "src": "236:7:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 32501,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "236:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "235:9:25"
+            },
+            "scope": 32515,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 32514,
+            "nodeType": "FunctionDefinition",
+            "src": "251:121:25",
+            "functionSelector": "4d393dc9",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "state",
+            "nameLocation": "260:5:25",
+            "parameters": {
+              "id": 32509,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 32506,
+                  "mutability": "mutable",
+                  "name": "_fundingCycleId",
+                  "nameLocation": "274:15:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32514,
+                  "src": "266:23:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 32505,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "266:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 32508,
+                  "mutability": "mutable",
+                  "name": "_configured",
+                  "nameLocation": "299:11:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32514,
+                  "src": "291:19:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 32507,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "291:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "265:46:25"
+            },
+            "returnParameters": {
+              "id": 32513,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 32512,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 32514,
+                  "src": "359:11:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_BallotState_$32499",
+                    "typeString": "enum BallotState"
+                  },
+                  "typeName": {
+                    "id": 32511,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 32510,
+                      "name": "BallotState",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 32499,
+                      "src": "359:11:25"
+                    },
+                    "referencedDeclaration": 32499,
+                    "src": "359:11:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_BallotState_$32499",
+                      "typeString": "enum BallotState"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "358:13:25"
+            },
+            "scope": 32515,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          32515
+        ],
+        "name": "IFundingCycleBallot",
+        "nameLocation": "167:19:25",
+        "scope": 32516,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 25
+}

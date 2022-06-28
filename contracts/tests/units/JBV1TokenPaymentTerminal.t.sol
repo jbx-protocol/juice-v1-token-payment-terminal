@@ -103,7 +103,7 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     emit SetV1ProjectId(_projectId, _projectIdV1, projectOwner);
 
     vm.prank(projectOwner);
-    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(_projectId, _projectIdV1);
 
     assertEq(migrationTerminal.v1ProjectIdOf(_projectId), _projectIdV1);
   }
@@ -128,7 +128,7 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
 
     vm.prank(_caller);
     vm.expectRevert(abi.encodeWithSignature('NOT_ALLOWED()'));
-    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(_projectId, _projectIdV1);
   }
 
   function testSetV1ProjectId_RevertIfDifferentV1V2Owners(
@@ -155,11 +155,11 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
 
     vm.prank(_projectOwnerV1);
     vm.expectRevert(abi.encodeWithSignature('NOT_ALLOWED()'));
-    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(_projectId, _projectIdV1);
 
     vm.prank(_projectOwnerV2);
     vm.expectRevert(abi.encodeWithSignature('NOT_ALLOWED()'));
-    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(_projectId, _projectIdV1);
   }
 
   // --------------- pay(..) ---------------------
@@ -193,7 +193,7 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     );
 
     vm.prank(projectOwner);
-    migrationTerminal.setV1ProjectId(projectId, projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(projectId, projectIdV1);
 
     // Mock the call to retrieve the correspoding V1 ERC20
     vm.mockCall(
@@ -417,7 +417,7 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     );
 
     vm.prank(projectOwner);
-    migrationTerminal.setV1ProjectId(projectId, projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(projectId, projectIdV1);
 
     // Mock the call to retrieve the correspoding V1 ERC20
     vm.mockCall(
@@ -490,7 +490,7 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     );
 
     vm.prank(projectOwner);
-    migrationTerminal.setV1ProjectId(projectId, projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(projectId, projectIdV1);
 
     // Mock the call to retrieve the correspoding V1 ERC20
     vm.mockCall(
