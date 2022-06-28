@@ -4,7 +4,6 @@ cache
 mnemonic.txt
 pk.txt
 .DS_Store 
-out
 
 # Keep related abi
 out/*

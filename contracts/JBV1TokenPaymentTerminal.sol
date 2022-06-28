@@ -223,7 +223,7 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
     @param _projectId The ID of the v2 project to set a v1 project ID for.
     @param _v1ProjectId The ID of the v1 project to set.
   */
-  function setV1ProjectId(uint256 _projectId, uint256 _v1ProjectId) external override {
+  function setV1ProjectIdOf(uint256 _projectId, uint256 _v1ProjectId) external override {
     // Can't set the v1 project ID if it isn't owned by the same address who owns the v2 project.
     if (
       msg.sender != projects.ownerOf(_projectId) ||
