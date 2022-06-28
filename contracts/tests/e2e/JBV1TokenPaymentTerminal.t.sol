@@ -60,7 +60,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
 
     // Set V1-V2 project equivalence
     vm.prank(_projectOwner);
-    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(_projectId, _projectIdV1);
 
     // Authorize the migration terminal to transfer the unclaimed V1 token
     uint256[] memory _index = new uint256[](1);
@@ -159,7 +159,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
 
     // Set V1-V2 project
     vm.prank(_projectOwner);
-    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(_projectId, _projectIdV1);
 
     // Approve the V1 claimed token transfer
     vm.prank(_beneficiary);
@@ -265,7 +265,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
 
     // Set V1-V2 project
     vm.prank(_projectOwner);
-    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(_projectId, _projectIdV1);
 
     // Approve the V1 claimed token transfer
     vm.prank(_beneficiary);
@@ -397,7 +397,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
 
     // Set V1-V2 project
     vm.prank(_projectOwner);
-    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(_projectId, _projectIdV1);
 
     // Approve the V1 claimed token transfer
     vm.prank(_beneficiary);
@@ -511,7 +511,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
 
     // Set V1-V2 project equivalence
     vm.prank(_projectOwner);
-    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(_projectId, _projectIdV1);
 
     // Authorize the migration terminal to transfer the unclaimed V1 token
     uint256[] memory _index = new uint256[](1);
@@ -610,7 +610,7 @@ contract TestE2EJBV1TokenPaymentTerminal is TestBaseWorkflow {
 
     // Set V1-V2 project equivalence
     vm.prank(_projectOwner);
-    migrationTerminal.setV1ProjectId(_projectId, _projectIdV1);
+    migrationTerminal.setV1ProjectIdOf(_projectId, _projectIdV1);
 
     // Authorize the migration terminal to transfer the unclaimed V1 token
     uint256[] memory _index = new uint256[](1);

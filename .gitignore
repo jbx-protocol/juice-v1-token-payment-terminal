@@ -6,9 +6,9 @@ pk.txt
 .DS_Store 
 
 # Keep related abi
-out/*
+out/**/*
 !out/JBV1TokenPaymentTerminal.sol/*
 
 # Keep the latest deployment only
-broadcast/*/*
+broadcast/**/*
 !broadcast/*/run-latest.json
