@@ -1,13 +1,13 @@
 {
   "name": "@jbx-protocol/juice-v1-token-terminal",
   "bugs": {
-    "url": "https://github.com/jbx-protocol/juice-v1-token-terminal/issues"
+    "url": "https://github.com/jbx-protocol/juice-v1-token-payment-terminal/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jbx-protocol/juice-v1-token-terminal"
+    "url": "https://github.com/jbx-protocol/juice-v1-token-payment-terminal"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "devDependencies": {
     "prettier": "^2.4.0",
