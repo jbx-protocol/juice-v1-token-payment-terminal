@@ -75,11 +75,7 @@ contract TestUnitJBV1TokenPaymentTerminal is Test {
     vm.label(caller, 'caller');
     vm.label(beneficiary, 'beneficiary');
 
-    migrationTerminal = new JBV1TokenPaymentTerminal(
-      mockProjects,
-      mockDirectory,
-      mockTicketBooth
-    );
+    migrationTerminal = new JBV1TokenPaymentTerminal(mockProjects, mockDirectory, mockTicketBooth);
 
     vm.mockCall(
       address(mockTicketBooth),
