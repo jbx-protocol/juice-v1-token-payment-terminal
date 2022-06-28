@@ -4,6 +4,7 @@ pragma solidity 0.8.6;
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBController.sol';
 import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBPaymentTerminal.sol';
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
 import './interfaces/IJBV1TokenPaymentTerminal.sol';
 
 /** 
@@ -27,7 +28,7 @@ import './interfaces/IJBV1TokenPaymentTerminal.sol';
   IJBV1TokenPaymentTerminal: General interface for the methods in this contract that interact with the blockchain's state according to the protocol's rules.
   IJBPaymentTerminal: Standardized interface for project to receive payments.
 */
-contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTerminal {
+contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTerminal, ERC165 {
   //*********************************************************************//
   // --------------------------- custom errors ------------------------- //
   //*********************************************************************//
@@ -173,10 +174,16 @@ contract JBV1TokenPaymentTerminal is IJBV1TokenPaymentTerminal, IJBPaymentTermin
 
     @param _interfaceId The ID of the interface to check for adherance to.
   */
-  function supportsInterface(bytes4 _interfaceId) external pure override returns (bool) {
+  function supportsInterface(bytes4 _interfaceId)
+    public
+    view
+    override(ERC165, IERC165)
+    returns (bool)
+  {
     return
       _interfaceId == type(IJBPaymentTerminal).interfaceId ||
-      _interfaceId == type(IJBV1TokenPaymentTerminal).interfaceId;
+      _interfaceId == type(IJBV1TokenPaymentTerminal).interfaceId ||
+      super.supportsInterface(_interfaceId);
   }
 
   //*********************************************************************//
